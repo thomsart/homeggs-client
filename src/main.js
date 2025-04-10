@@ -1,12 +1,7 @@
 // main.js
-import { createApp } from 'vue';
+import { createApp } from 'vue'
+import App from './App.vue'
 
-const app = createApp({
-  data() {
-    return {
-      message: 'Hello Vue.js!'
-    };
-  }
-});
+const app = createApp(App)
 
 app.mount('#app');
