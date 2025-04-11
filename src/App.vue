@@ -17,7 +17,7 @@
 
 <template>
     
-    <h1>Hommeggs</h1>
+    <h1>Homeggs</h1>
     <template v-if="token===true">
         <h2>Mets tout tes œufs dans le même foyer!</h2>
     </template>
