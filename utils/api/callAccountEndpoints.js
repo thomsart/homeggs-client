@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue'
 import APIRoutes from './APIRoutes.js'
-import { useToken } from '../../compoables/token.js'
+import { useToken } from '../../composables/token.js'
 
 const url = new APIRoutes();
 const { token } = useToken();
@@ -54,6 +54,14 @@ export function callAccount() {
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
+            case 'logout':
+                await fetcher({
+                    endpoint: url.logout,
+                    method: 'POST',
+                });
+                break;
+            ///////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////
             case 'me':
                 const meResponse = await fetcher({
                     endpoint: url.me,
@@ -76,6 +84,7 @@ export function callAccount() {
         datas,
         error,
         login: (email, password) => action('login', { body: {email, password} }),
+        logout: () => action('logout'),
         me: () => action('me'),
     };
 }
