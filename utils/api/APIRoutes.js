@@ -12,10 +12,10 @@ class APIRoute {
         this.budget = this.apiRoot + 'budget/';
         this.companies = this.budget + 'companies/';
         this.exceptionalExpenses = this.budget + 'exceptional-expenses/';
-        this.extra = this.budget + 'extras/';
+        this.extras = this.budget + 'extras/';
         this.feeOrExpenses = this.budget + 'fee-or-expenses/';
         this.salaries = this.budget + 'salaries/';
-        this.savings = this.budget + 'savings';
+        this.savings = this.budget + 'savings/';
         this.taxes = this.budget + 'taxes/';
     }
 }
