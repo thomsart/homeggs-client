@@ -56,8 +56,8 @@ export function callAccount() {
             ///////////////////////////////////////////////////////////////////
             case 'me':
                 const meResponse = await fetcher({
-                    endpoint: url.me;
-                    method: 'GET';
+                    endpoint: url.me,
+                    method: 'GET',
                 });
                 datas.value = Object.assign({}, meResponse);
                 break;
