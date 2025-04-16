@@ -22,8 +22,8 @@ export const useUserStore = defineStore('user', {
         setUser(newUserData) {
             this.user.id = newUserData.id || null;
             this.user.email = newUserData.email || '';
-            this.user.firstName = newUserData.firstName || '';
-            this.user.lastName = newUserData.lastName || '';
+            this.user.firstName = newUserData.first_name || '';
+            this.user.lastName = newUserData.last_name || '';
             this.user.phone = newUserData.phone || '';
         },
         clearUser() {

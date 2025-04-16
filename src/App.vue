@@ -45,10 +45,11 @@
     </template>
 
     <template v-else>
-        <h2>Bienvenue{{ userStore.firtsName }}</h2>
+        <h2>Bienvenue {{ userStore.firtsName }} {{ userStore.lastName }} !</h2>
         <custom-button buttonText="deconnexion" buttonColor="blue" @button-click="handleLogout"></custom-button>
-        <p>{{ userStore.email }}</p>
-        <p>{{ userStore.phone }}</p>
+        <p>id: {{ userStore.id }}</p>
+        <p>email: {{ userStore.email }}</p>
+        <p>phone: {{ userStore.phone }}</p>
     </template>
 
 </template>
