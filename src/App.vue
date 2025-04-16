@@ -39,6 +39,7 @@
 
     <h1>Homeggs</h1>
     <h2>Mets tout tes œufs dans le même foyer!</h2>
+    <hr>
 
     <template v-if="!token">
         <login-Form></login-Form>

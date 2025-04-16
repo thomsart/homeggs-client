@@ -17,6 +17,11 @@ class APIRoute {
         this.salaries = this.budget + 'salaries/';
         this.savings = this.budget + 'savings/';
         this.taxes = this.budget + 'taxes/';
+
+        this.shop = this.apiRoot + 'shop/';
+        this.coasts = this.shop + 'coasts/';
+        this.products = this.shop + 'products/';
+        this.shops = this.shop + 'shops/';
     }
 }
 
