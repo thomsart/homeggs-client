@@ -1,9 +1,19 @@
 <script setup>
 
-    import CustomButton from './CustomButton.vue'
+    import { useToken } from '../composables/token.js'
+    import { callAccount } from '../utils/api/callAccountEndpoints.js'
     import { useUserStore } from '../stores/user.js'
 
+    import CustomButton from './CustomButton.vue'
+
+    const { token, clearToken } = useToken();
     const userStore = useUserStore();
+
+    const handleLogout = async () => {
+        const callLogout = callAccount();
+        await callLogout.logout(token.value);
+        clearToken();
+    };
 
 </script>
 

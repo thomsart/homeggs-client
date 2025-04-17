@@ -2,7 +2,6 @@
 
     import { onMounted, watchEffect } from 'vue'
     import { callAccount } from '../utils/api/callAccountEndpoints.js'
-    // import { callShop } from '../utils/api/callShopEndpoints.js'
     import { useToken } from '../composables/token.js'
     import { useUserStore } from '../stores/user.js'
 
@@ -10,14 +9,8 @@
     import WelcomingUser from '../components/WelcomingUser.vue'
     import ShopList from '../components/ShopList.vue'
 
-    const { token, clearToken } = useToken();
+    const { token } = useToken();
     const userStore = useUserStore();
-
-    const handleLogout = async () => {
-        const callLogout = callAccount();
-        await callLogout.logout(token.value);
-        clearToken();
-    };
 
     onMounted(() => {
         const callMe = callAccount();

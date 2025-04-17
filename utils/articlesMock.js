@@ -1,4 +1,3 @@
-
 const Articles = [
     'shewinggum',
     'fromages blanc',
