@@ -1,5 +1,5 @@
 
-const todos = [
+const Todos = [
     'netouer le toit au karsher',
     'finir le tableau electrique',
     'finir les passages de cable elec',
@@ -10,3 +10,5 @@ const todos = [
     'refaire les cloisons a l etage',
     'refaire les murs a l etage',
 ]
+
+export default Todos;

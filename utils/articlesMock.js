@@ -1,5 +1,5 @@
 
-const articles = [
+const Articles = [
     'shewinggum',
     'fromages blanc',
     'riz',
@@ -24,4 +24,4 @@ const articles = [
     'lingette',
 ]
 
-export default articles;
+export default Articles;

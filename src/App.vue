@@ -2,12 +2,13 @@
 
     import { onMounted, watchEffect } from 'vue'
     import { callAccount } from '../utils/api/callAccountEndpoints.js'
-    import { callShop } from '../utils/api/callShopEndpoints.js'
+    // import { callShop } from '../utils/api/callShopEndpoints.js'
     import { useToken } from '../composables/token.js'
     import { useUserStore } from '../stores/user.js'
 
     import LoginForm from '../components/LoginForm.vue'
-    import CustomButton from '../components/CustomButton.vue'
+    import WelcomingUser from '../components/WelcomingUser.vue'
+    import ShopList from '../components/ShopList.vue'
 
     const { token, clearToken } = useToken();
     const userStore = useUserStore();
@@ -42,15 +43,12 @@
     <hr>
 
     <template v-if="!token">
-        <login-Form></login-Form>
+        <login-form></login-form>
     </template>
 
     <template v-else>
-        <h2>Bienvenue {{ userStore.firtsName }} {{ userStore.lastName }} !</h2>
-        <custom-button buttonText="deconnexion" buttonColor="blue" @button-click="handleLogout"></custom-button>
-        <p>id: {{ userStore.id }}</p>
-        <p>email: {{ userStore.email }}</p>
-        <p>phone: {{ userStore.phone }}</p>
+        <welcoming-user></welcoming-user>
+        <shop-list></shop-list>
     </template>
 
 </template>
