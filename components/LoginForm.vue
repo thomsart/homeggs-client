@@ -7,10 +7,10 @@
     import { useToken } from '../composables/token.js'
     import { useUserStore } from '../stores/user.js'
 
-    const email = ref('');
-    const password = ref('');
     const { token, setToken } = useToken();
     const userStore = useUserStore();
+    const email = ref('');
+    const password = ref('');
 
     const handleLogin = async () => {
         const callLogin = callAccount();
@@ -38,6 +38,7 @@
 
 <template>
 
+    <h2>Connecte toi</h2>
     <form @submit.prevent="handleLogin">
         <input v-model="email" type="email" placeholder="your email">
         <input v-model="password" type="password" placeholder="your password">

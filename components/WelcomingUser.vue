@@ -19,12 +19,13 @@
 
 <template>
 
-    <h2>Bienvenue {{ userStore.firtsName }} {{ userStore.lastName }} !</h2>
-    <custom-button buttonText="deconnexion" buttonColor="blue" @button-click="handleLogout"></custom-button>
+    <h2>Ton Compte</h2>
+    <h3>Bienvenue {{ userStore.firtsName }} {{ userStore.lastName }} !</h3>
+    <custom-button buttonText="deconnexion" buttonColor="red" @button-click="handleLogout"></custom-button>
     <p>id: {{ userStore.id }}</p>
     <p>email: {{ userStore.email }}</p>
     <p>phone: {{ userStore.phone }}</p>
-    <hr></hr>
+    <hr>
 
 </template>
 

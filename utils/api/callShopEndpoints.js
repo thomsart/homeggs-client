@@ -2,25 +2,26 @@ import { ref, reactive } from 'vue'
 import APIRoutes from './APIRoutes.js'
 import { useToken } from '../../composables/token.js'
 
-const url = new APIRoutes();
 const { token } = useToken();
 
 export function callShop() {
+    const url = new APIRoutes();
     const datas = reactive({}); // reactive datas
     const error = ref(null);
 
     // generic function for API calls
-    const fetcher = async ({ endpoint, id=null, method='GET', body=null}) => {
+    const fetcher = async ({ endpoint, method='GET', headers={}, params={}, body=null}) => {
 
         error.value = null; // reinitialize errors before each calls
         try {
             const headers = {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
                 'Authorization': `Token ${token.value}`,
             };
-            if (id) {
-                endpoint = endpoint + id;
-            }
+            Object.entries(params).forEach(([key, value]) => {
+                url.searchParams.append(key, value);
+            });
             const response = await fetch(endpoint, {
                 method,
                 headers,
@@ -45,7 +46,7 @@ export function callShop() {
                 const allProductsResponse = await fetcher({
                     endpoint: url.products,
                 });
-                datas.value = allProductsResponse;
+                Object.assign(datas, allProductsResponse);
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -55,7 +56,7 @@ export function callShop() {
                     method: 'POST',
                     body: options.body,
                 });
-                datas.value = addProductResponse;
+                Object.assign(datas, addProductResponse);
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -63,7 +64,7 @@ export function callShop() {
                 const getProductResponse = await fetcher({
                     endpoint: url.products,
                 });
-                datas.value = getProductResponse;
+                Object.assign(datas, getProductResponse);
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -73,7 +74,7 @@ export function callShop() {
                     method: 'PATCH',
                     body: options.body,
                 });
-                datas.value = updateProductResponse;
+                Object.assign(datas, updateProductResponse);
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -82,7 +83,7 @@ export function callShop() {
                     endpoint: url.products,
                     method: 'DELETE',
                 });
-                datas.value = deleteProductResponse;
+                Object.assign(datas, deleteProductResponse);
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -102,9 +103,9 @@ export function callShop() {
         datas,
         error,
         allProducts: () => action('allProducts'),
-        addProduct: () => action('addProduct'),
-        getProduct: (id) => action('getProduct'),
-        updateProduct: (id, {}) => action('updateProduct'),
-        deleteProduct: (id) => action('deleteProduct'),
+        addProduct: (body) => action('addProduct', {body}),
+        getProduct: (id) => action('getProduct', {id}),
+        updateProduct: (id, body) => action('updateProduct', {id, body}),
+        deleteProduct: (id) => action('deleteProduct', {id}),
     };
 }

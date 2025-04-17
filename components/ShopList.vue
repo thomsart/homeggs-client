@@ -1,29 +1,41 @@
 <script setup>
 
-    import { ref } from 'vue'
+    import { ref, reactive } from 'vue'
+    import { callShop } from '../utils/api/callShopEndpoints.js'
     import Articles from '../utils/articlesMock.js'
+
     import CustomButton from './CustomButton.vue'
 
-    const articles = ref(Articles);
+    const products = reactive();
 
-    const createArticle = (name) => {}
-    const deleteArticle = (name) => {}
-    const addToList = (name) => {}
-    const takeOffFromList = (name) => {}
+    // const createArticle = (name) => {}
+    // const deleteArticle = (name) => {}
+    // const addToList = (name) => {}
+    // const takeOffFromList = (article) => {
+    //     articles.value = articles.value.filter(m => m!==article)
+    // }
+    const handleCreateProduct = async () => {};
+    const handleAddToList = async () => {};
+    const handletakeOffFromList = (product) => {
+        products.value = products.value.filter(m => m!==product)
+    }
+    const handleUpdateProduct = async () => {};
+    const handleDeleteProduct = async () => {};
 
 </script>
 
 <template>
 
-    <h2 v-if="articles.lenght !== 0">A acheter: </h2>
+    <h2>Shopping List</h2>
+    <h3 v-if="products.lenght !== 0">A acheter: </h3>
     <h3 v-else>Fais ta liste de course</h3>
 
-    <custom-button buttonText="Create article" button-color="green" @button-click="createArticle(name)"/>
-    <custom-button buttonText="Delete article" button-color="red" @button-click="deleteArticle(name)"/>
-    <custom-button buttonText="Add to list" button-color="green" @button-click="addToList(name)"/>
+    <custom-button buttonText="Create product" button-color="blue" @button-click="handleCreateProduct(name)"/>
+    <custom-button buttonText="Delete product" button-color="red" @button-click="handleDeleteProduct(name)"/>
+    <custom-button buttonText="Add to list" button-color="green" @button-click="handleAddToList(name)"/>
 
     <div id="shopList">
-        <CustomButton v-for="article in articles" :buttonText="article" buttonColor="red" @button-click="takeOffFromList(name)"/>
+        <custom-button v-for="product in products" :buttonText="product" buttonColor="red" @button-click="handletakeOffFromList(product)"/>
     </div>
     <hr>
 

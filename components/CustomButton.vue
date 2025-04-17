@@ -41,5 +41,8 @@
         cursor: pointer;
         transition: background-color 0.3s;
     }
+    .custom-button:hover {
+        filter: brightness(70%);
+    }
 
 </style>
