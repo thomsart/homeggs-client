@@ -36,7 +36,7 @@ export function callShop() {
         }
     };
 
-    // So for each differents calls now:
+    // So for each different call now:
     const action = async (type, options = {}) => {
         switch (type) {
             ///////////////////////////////////////////////////////////////////
@@ -44,7 +44,6 @@ export function callShop() {
             case 'allProducts':
                 const allProductsResponse = await fetcher({
                     endpoint: url.products,
-                    body: options.body,
                 });
                 datas.value = allProductsResponse;
                 break;
@@ -53,6 +52,7 @@ export function callShop() {
             case 'addProduct':
                 const addProductResponse = await fetcher({
                     endpoint: url.products,
+                    method: 'POST',
                     body: options.body,
                 });
                 datas.value = addProductResponse;
@@ -62,7 +62,6 @@ export function callShop() {
             case 'getProduct':
                 const getProductResponse = await fetcher({
                     endpoint: url.products,
-                    body: options.body,
                 });
                 datas.value = getProductResponse;
                 break;
@@ -71,6 +70,7 @@ export function callShop() {
             case 'updateProduct':
                 const updateProductResponse = await fetcher({
                     endpoint: url.products,
+                    method: 'PATCH',
                     body: options.body,
                 });
                 datas.value = updateProductResponse;
@@ -80,16 +80,16 @@ export function callShop() {
             case 'deleteProduct':
                 const deleteProductResponse = await fetcher({
                     endpoint: url.products,
-                    body: options.body,
+                    method: 'DELETE',
                 });
                 datas.value = deleteProductResponse;
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
-            
+
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
-            
+
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
 
@@ -101,8 +101,10 @@ export function callShop() {
     return {
         datas,
         error,
-        login: (email, password) => action('login', { body: {email, password} }),
-        products: () => action('products'),
-        me: () => action('me'),
+        allProducts: () => action('allProducts'),
+        addProduct: () => action('addProduct'),
+        getProduct: (id) => action('getProduct'),
+        updateProduct: (id, {}) => action('updateProduct'),
+        deleteProduct: (id) => action('deleteProduct'),
     };
 }
