@@ -50,13 +50,13 @@ export function callShop() {
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
-            case 'addProduct':
-                const addProductResponse = await fetcher({
+            case 'postProduct':
+                const postProductResponse = await fetcher({
                     endpoint: url.products,
                     method: 'POST',
                     body: options.body,
                 });
-                Object.assign(datas, addProductResponse);
+                Object.assign(datas, postProductResponse);
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -103,7 +103,7 @@ export function callShop() {
         datas,
         error,
         allProducts: () => action('allProducts'),
-        addProduct: (body) => action('addProduct', {body}),
+        postProduct: (body) => action('postProduct', {body}),
         getProduct: (id) => action('getProduct', {id}),
         updateProduct: (id, body) => action('updateProduct', {id, body}),
         deleteProduct: (id) => action('deleteProduct', {id}),

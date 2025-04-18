@@ -30,7 +30,7 @@
     };
 
     watchEffect(() => {
-        console.log(('WatchEffect token in loginForm.vue: ' + token.value));
+        // console.log(('WatchEffect token in loginForm.vue: ' + token.value));
     });
 
 

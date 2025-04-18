@@ -18,13 +18,13 @@
             if (userStore.id === null && token.value !== null) {
                 await callMe.me(token.value);
                 userStore.setUser(callMe.datas.value);
-                console.log('The user as it comes from API: ' + JSON.stringify(callMe.datas.value));
+                // console.log('The user as it comes from API: ' + JSON.stringify(callMe.datas.value));
             }}
         fetchUserIfTokenExists();
     })
 
     watchEffect(() => {
-        console.log('WatchEffect token dans App.vue: ' + token.value);
+        // console.log('WatchEffect token dans App.vue: ' + token.value);
     });
 
 </script>

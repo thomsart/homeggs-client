@@ -8,8 +8,9 @@
 
     const product = reactive(new Product());
     const handleCreateProduct = async () => {
-        const callAddProduct = callShop();
-        callAddProduct.addProduct();
+        console.log(product.createProduct());
+        const callProduct = callShop();
+        callProduct.postProduct(product.createProduct());
     };
 
 </script>
@@ -18,7 +19,7 @@
 
     <form id="product-form" @submit.prevent="handleCreateProduct">
 
-        <div id="product-inputs" v-for="(value, key) in product.getFormFields()" :key="key">
+        <div id="product-inputs" v-for="(value, key) in product.formFields()" :key="key">
             <input :id="key" :name="key" v-model="product[key]"  :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
         </div>
         <Custom-button id="button-validation" buttonText="ajoute" buttonCollor="blue">Ajoute</Custom-button>
@@ -29,19 +30,6 @@
 </template>
 
 <style>
-
-    /* #product-form {
-        border: 3px;
-        border-color: black;
-        width: 80%;
-        height: 80%;
-        
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-    } */
 
     #product-inputs {
         display: flex;

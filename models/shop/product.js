@@ -12,7 +12,7 @@ class Product  {
         this.photo = null;
     }
 
-    getFormFields() {
+    formFields() {
         return {
             name: "",
             quantity: 0.0,
@@ -21,11 +21,13 @@ class Product  {
         }
     };
 
-    createProduct(name, quantity, kilo, litre) {
-        this.name = name;
-        this.quantity = quantity;
-        this.kilo = kilo;
-        this.litre = litre;
+    createProduct() {
+        return JSON.stringify({
+            name: this.name,
+            quantity: this.quantity,
+            kilo: this.kilo,
+            litre: this.litre
+        })
     };
 }
 
