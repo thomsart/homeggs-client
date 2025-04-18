@@ -2,19 +2,14 @@
 
     import { ref, reactive } from 'vue'
     import { callShop } from '../utils/api/callShopEndpoints.js'
-    import Articles from '../utils/articlesMock.js'
+    import Product from '../models/shop/product.js'
 
     import CustomButton from './CustomButton.vue'
+    import ProductForm from './ProductForm.vue';
 
-    const products = reactive();
+    const products = [reactive(new Product())];
+    const isModalOpen = ref(false);
 
-    // const createArticle = (name) => {}
-    // const deleteArticle = (name) => {}
-    // const addToList = (name) => {}
-    // const takeOffFromList = (article) => {
-    //     articles.value = articles.value.filter(m => m!==article)
-    // }
-    const handleCreateProduct = async () => {};
     const handleAddToList = async () => {};
     const handletakeOffFromList = (product) => {
         products.value = products.value.filter(m => m!==product)
@@ -30,7 +25,14 @@
     <h3 v-if="products.lenght !== 0">A acheter: </h3>
     <h3 v-else>Fais ta liste de course</h3>
 
-    <custom-button buttonText="Create product" button-color="blue" @button-click="handleCreateProduct(name)"/>
+    <custom-button buttonText="Create product" button-color="blue" @button-click="isModalOpen = true"/>
+    <div v-if="isModalOpen" id="modal-overlay">
+      <div id="modal">
+        <custom-button id="button-close-modal" buttonText="X" button-color="red" @button-click="isModalOpen = false"/>
+        <product-form/>
+      </div>
+    </div>
+
     <custom-button buttonText="Delete product" button-color="red" @button-click="handleDeleteProduct(name)"/>
     <custom-button buttonText="Add to list" button-color="green" @button-click="handleAddToList(name)"/>
 
@@ -41,17 +43,42 @@
 
 </template>
 
-<style scoped>
+<style>
 
     #shopList {
         background-color: beige;
-        width: 80%;
+        width: 90%;
         display: flex;
         flex: 1;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: start;
         min-width: 0;
+    }
+    #modal-overlay {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #modal {
+        position: relative;
+        background-color: white;
+        width: 30%;
+        height: 30%;
+        border: solid 3px;
+        border-color: rgb(0, 0, 0);
+        border-radius: 1em;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #button-close-modal {
+        margin-top: 5px;
+        margin-right: 5px;
     }
 
 </style>
