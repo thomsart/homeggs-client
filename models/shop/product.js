@@ -22,12 +22,12 @@ class Product  {
     };
 
     createProduct() {
-        return JSON.stringify({
+        return {
             name: this.name,
             quantity: this.quantity,
             kilo: this.kilo,
             litre: this.litre
-        })
+        }
     };
 }
 

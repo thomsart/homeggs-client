@@ -11,6 +11,9 @@
         console.log(product.createProduct());
         const callProduct = callShop();
         callProduct.postProduct(product.createProduct());
+        // if (callProduct.postProduct.postProductResponse !== {}) {
+
+        // }
     };
 
 </script>

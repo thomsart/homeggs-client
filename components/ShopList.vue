@@ -1,13 +1,25 @@
 <script setup>
 
-    import { ref, reactive } from 'vue'
+    import { ref, reactive, onMounted } from 'vue'
     import { callShop } from '../utils/api/callShopEndpoints.js'
     import Product from '../models/shop/product.js'
 
     import CustomButton from './CustomButton.vue'
     import ProductForm from './ProductForm.vue';
 
-    const products = [reactive(new Product())];
+    const products = ref([]);
+    onMounted(async () => {
+        try {
+        const callProducts = callShop();
+        await callProducts.allProducts();
+        const fetchedProducts = callProducts.datas.value || [];
+        products.value = fetchedProducts.map(data => reactive(new Product(data)));
+        } catch (error) {
+            console.error("Erreur lors de la récupération des produits :", error);
+        }
+        console.log(products.value);
+    })
+
     const isModalOpen = ref(false);
 
     const handleAddToList = async () => {};
@@ -22,7 +34,7 @@
 <template>
 
     <h2>Shopping List</h2>
-    <h3 v-if="products.lenght !== 0">A acheter: </h3>
+    <h3 v-if="products.length !== 0">A acheter: </h3>
     <h3 v-else>Fais ta liste de course</h3>
 
     <custom-button buttonText="Create product" button-color="blue" @button-click="isModalOpen = true"/>
@@ -37,7 +49,7 @@
     <custom-button buttonText="Add to list" button-color="green" @button-click="handleAddToList(name)"/>
 
     <div id="shopList">
-        <custom-button v-for="product in products" :buttonText="product" buttonColor="red" @button-click="handletakeOffFromList(product)"/>
+        <custom-button v-for="product in products" :buttonText="product.name" buttonColor="red" @button-click="handletakeOffFromList(product)"/>
     </div>
     <hr>
 
