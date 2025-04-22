@@ -1,30 +1,63 @@
 <script setup>
 
-    import { ref, reactive, onMounted } from 'vue'
+    import { ref, reactive, onMounted, computed } from 'vue'
     import { callShop } from '../utils/api/callShopEndpoints.js'
     import Product from '../models/shop/product.js'
 
     import CustomButton from './CustomButton.vue'
-    import ProductForm from './ProductForm.vue';
+    import ProductForm from './ProductForm.vue'
 
-    const products = ref([]);
+
     onMounted(async () => {
+        await loadProducts(); // Charge les produits au montage
+    });
+
+    const products = reactive([]);
+    async function loadProducts() {
         try {
-        const callProducts = callShop();
-        await callProducts.allProducts();
-        const fetchedProducts = callProducts.datas.value || [];
-        products.value = fetchedProducts.map(data => reactive(new Product(data)));
+            const callProducts = callShop();
+            await callProducts.allProducts();
+            const fetchedProducts = callProducts.getDatas();
+            // console.log("This is the fetchedProducts: " + JSON.stringify(fetchedProducts));
+            products.splice(0, products.length, ...fetchedProducts.map(product => new Product(product)));
+            // products.forEach(product =>{console.log(product);})
         } catch (error) {
             console.error("Erreur lors de la récupération des produits :", error);
         }
-        console.log(products.value);
-    })
+        console.log("Reactive Products: ", JSON.stringify(products));
+    }
+
+    async function toggleProductMissing(productId) {
+        try {
+            const callProducts = callShop();
+            await callProducts.updateProduct(productId, { missing: true });
+            console.log(`Produit avec ID ${productId} mis à jour avec success.`);
+            await loadProducts(); // Rafraîchit les produits après une mise à jour réussie
+        } catch (error) {
+            console.error(`Erreur lors de la mise à jour du produit avec ID ${productId} :`, error);
+        }
+    }
+
+    // Filtrer les produits si nécessaire
+    const filteredProducts = computed(() => products.filter(product => product.missing === false));
+
+
+    // const products = reactive([]);
+    // onMounted(async () => {
+    //     try {
+    //     const callProducts = callShop();
+    //     await callProducts.allProducts();
+    //     const fetchedProducts = callProducts.getDatas();
+    //     products.splice(0, products.length, ...fetchedProducts.map(product => new Product(product)));
+    //     } catch (error) {
+    //         console.error("Erreur lors de la récupération des produits :", error);
+    //     }
+    // })
 
     const isModalOpen = ref(false);
-
     const handleAddToList = async () => {};
     const handletakeOffFromList = (product) => {
-        products.value = products.value.filter(m => m!==product)
+        products = products.filter(m => m!==product)
     }
     const handleUpdateProduct = async () => {};
     const handleDeleteProduct = async () => {};
@@ -37,19 +70,18 @@
     <h3 v-if="products.length !== 0">A acheter: </h3>
     <h3 v-else>Fais ta liste de course</h3>
 
+    <div id="shopList">
+        <custom-button v-for="product in filteredProducts" :buttonText="product.name" buttonColor="blueviolet" @button-click="toggleProductMissing(product.id)"/>
+    </div>
+    <custom-button buttonText="Add to list" button-color="green" @button-click="handleAddToList(name)"/>
     <custom-button buttonText="Create product" button-color="blue" @button-click="isModalOpen = true"/>
+    <custom-button buttonText="Delete product" button-color="red" @button-click="handleDeleteProduct(name)"/>
+
     <div v-if="isModalOpen" id="modal-overlay">
       <div id="modal">
         <custom-button id="button-close-modal" buttonText="X" button-color="red" @button-click="isModalOpen = false"/>
         <product-form/>
       </div>
-    </div>
-
-    <custom-button buttonText="Delete product" button-color="red" @button-click="handleDeleteProduct(name)"/>
-    <custom-button buttonText="Add to list" button-color="green" @button-click="handleAddToList(name)"/>
-
-    <div id="shopList">
-        <custom-button v-for="product in products" :buttonText="product.name" buttonColor="red" @button-click="handletakeOffFromList(product)"/>
     </div>
     <hr>
 

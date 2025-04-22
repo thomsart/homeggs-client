@@ -7,7 +7,7 @@ const { token } = useToken();
 
 export function callAccount() {
     const datas = reactive({}); // reactive datas
-    const error = ref(null);
+    const error = ref(null); // and here again...
 
     // generic function for API calls
     const fetcher = async ({ endpoint, method='GET', body=null, requiresAuth=true }) => {

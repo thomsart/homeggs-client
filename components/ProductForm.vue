@@ -7,20 +7,17 @@
     import CustomButton from './CustomButton.vue'
 
     const product = reactive(new Product());
-    const handleCreateProduct = async () => {
+    const handlePostProduct = async () => {
         console.log(product.createProduct());
         const callProduct = callShop();
         callProduct.postProduct(product.createProduct());
-        // if (callProduct.postProduct.postProductResponse !== {}) {
-
-        // }
     };
 
 </script>
 
 <template>
 
-    <form id="product-form" @submit.prevent="handleCreateProduct">
+    <form id="product-form" @submit.prevent="handlePostProduct">
 
         <div id="product-inputs" v-for="(value, key) in product.formFields()" :key="key">
             <input :id="key" :name="key" v-model="product[key]"  :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>

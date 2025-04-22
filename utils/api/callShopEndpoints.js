@@ -1,23 +1,26 @@
 import { ref, reactive } from 'vue'
 import APIRoutes from './APIRoutes.js'
 import { useToken } from '../../composables/token.js'
+import Product from '../../models/shop/product.js'
 
 const { token } = useToken();
 
 export function callShop() {
     const url = new APIRoutes();
-    const datas = reactive({}); // reactive datas
-    const error = ref(null);
+    let response_datas = null;
+    let error = '';
 
     // generic function for API calls
-    const fetcher = async ({ endpoint, method='GET', headers={}, params={}, body=null}) => {
+    const fetcher = async ({ endpoint, id, method='GET', params={}, body=null}) => {
 
-        error.value = null; // reinitialize errors before each calls
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Token ${token.value}`,
+            };
+            if (id) {
+                endpoint = `${endpoint}${id}/`;
             };
             Object.entries(params).forEach(([key, value]) => {
                 url.searchParams.append(key, value);
@@ -32,7 +35,7 @@ export function callShop() {
             }
             return await response.json();
         } catch (err) {
-            error.value = err;
+            error = err;
             throw err;
         }
     };
@@ -43,10 +46,11 @@ export function callShop() {
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
             case 'allProducts':
-                const allProductsResponse = await fetcher({
+                const allProductResponse = await fetcher({
                     endpoint: url.products,
                 });
-                Object.assign(datas, allProductsResponse);
+                response_datas = allProductResponse
+                // response_datas = allProductsResponse.map(product => product);
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -56,15 +60,16 @@ export function callShop() {
                     method: 'POST',
                     body: options.body,
                 });
-                Object.assign(datas, postProductResponse);
+                response_datas = postProductResponse;
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
             case 'getProduct':
                 const getProductResponse = await fetcher({
                     endpoint: url.products,
+                    id: options.id,
                 });
-                Object.assign(datas, getProductResponse);
+                response_datas = getProductResponse;
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -73,8 +78,9 @@ export function callShop() {
                     endpoint: url.products,
                     method: 'PATCH',
                     body: options.body,
+                    id: options.id,
                 });
-                Object.assign(datas, updateProductResponse);
+                response_datas = updateProductResponse;
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -82,8 +88,8 @@ export function callShop() {
                 const deleteProductResponse = await fetcher({
                     endpoint: url.products,
                     method: 'DELETE',
+                    id: options.id,
                 });
-                Object.assign(datas, deleteProductResponse);
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////
@@ -100,8 +106,8 @@ export function callShop() {
     };
 
     return {
-        datas,
-        error,
+        getDatas: () => response_datas,
+        getError: () => error,
         allProducts: () => action('allProducts'),
         postProduct: (body) => action('postProduct', {body}),
         getProduct: (id) => action('getProduct', {id}),
