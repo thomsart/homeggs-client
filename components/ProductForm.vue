@@ -1,6 +1,6 @@
 <script setup>
 
-    import { ref, reactive } from 'vue'
+    import { reactive } from 'vue'
     import { callShop } from '../utils/api/callShopEndpoints.js'
     import Product from '../models/shop/product.js'
 
