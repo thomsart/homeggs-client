@@ -7,7 +7,7 @@
 
     import LoginForm from '../components/LoginForm.vue'
     import WelcomingUser from '../components/WelcomingUser.vue'
-    import ShopList from '../components/ShopList.vue'
+    import ShopList from '../components/Shop.vue'
 
     const { token } = useToken();
     const userStore = useUserStore();
