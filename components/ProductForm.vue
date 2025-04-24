@@ -7,10 +7,17 @@
     import CustomButton from './CustomButton.vue'
 
     const product = reactive(new Product());
+    const emit = defineEmits(['close-modal']);
     const handlePostProduct = async () => {
-        console.log(product.createProduct());
-        const callProduct = callShop();
-        callProduct.postProduct(product.createProduct());
+        try {
+            console.log(product.createProduct());
+            const callProduct = callShop();
+            await callProduct.postProduct(product.createProduct());
+            emit('close-modal');
+            console.log("handlePostProduct => product created: ", product);            
+        } catch (error) {
+            console.error(`handlePostProduct => Erreur lors de la creation du produit ${product.name} :`, error);
+        }
     };
 
 </script>

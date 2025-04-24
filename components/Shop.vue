@@ -1,12 +1,11 @@
 <script setup>
 
-    import { ref, reactive, onMounted, computed } from 'vue'
+    import { ref, reactive, onMounted, computed, watch } from 'vue'
     import { callShop } from '../utils/api/callShopEndpoints.js'
     import Product from '../models/shop/product.js'
 
     import CustomButton from './CustomButton.vue'
     import ProductForm from './ProductForm.vue'
-
 
     onMounted(async () => {
         await loadProducts();
@@ -19,29 +18,34 @@
             const callProducts = callShop();
             await callProducts.allProducts();
             const fetchedProducts = callProducts.getDatas();
-            // console.log("This is the fetchedProducts: " + JSON.stringify(fetchedProducts));
+            // console.log("loadProducts() =>  fetchedProducts: " + JSON.stringify(fetchedProducts));
             products.splice(0, products.length, ...fetchedProducts.map(product => new Product(product)));
             // products.forEach(product =>{console.log(product);})
         } catch (error) {
-            console.error("Erreur lors de la récupération des produits :", error);
+            console.error("Erreur lors de la récupération des produits dans loadProducts() => :", error);
         }
-        console.log("Reactive Products: ", JSON.stringify(products));
+        // console.log("loadProducts() => reactive products: ", JSON.stringify(products));
     }
 
     async function handleAddDelToList(product) {
         try {
             const callProducts = callShop();
             await callProducts.updateProduct(product.id, { missing: !product.missing });
-            if (product.missing === true) {
-                console.log(`${product.name} retiré de la liste.`);
-            } else {
-                console.log(`${product.name} mis dans la liste.`);
-            }
+            // if (product.missing === true) {
+            //     console.log(`handleAddDelToList => ${product.name} retiré de la liste.`);
+            // } else {
+            //     console.log(`handleAddDelToList => ${product.name} mis dans la liste.`);
+            // }
             await loadProducts(); // Refresh products after updating
         } catch (error) {
-            console.error(`Erreur lors du retrait du produit ${product.name} :`, error);
+            console.error(`handleAddDelToList => Erreur lors du retrait du produit ${product.name} :`, error);
         }
     }
+
+    const handleProductFormModal = async () => {
+        isModalProductFormOpen.value = false; // To close modal-create-product-form
+        await loadProducts();
+    };
 
     async function handleDeleteProduct(productId) {
 
@@ -52,6 +56,16 @@
     const availableProducts = computed(() => products.filter(product => product.missing === false));
     const isModalProductListOpen = ref(false);
     const isModalProductFormOpen = ref(false);
+
+    watch(availableProducts, 
+        (currentValue) => {
+            if (currentValue.length < 1) {
+                // console.log("watch(availableProducts) No available products anymore...");
+                isModalProductListOpen.value = false;
+            }
+        },
+        { immediate: true }
+    );
 
 </script>
 
@@ -65,11 +79,11 @@
     <div id="shopList">
         <custom-button v-for="product in missedProducts" :buttonText="product.name" buttonColor="blueviolet" 
             @button-click="handleAddDelToList(product)"/>
-        <div v-if="availableProducts.length > 0 ">
-            <custom-button buttonText="+" button-color="blueviolet" @button-click="isModalProductListOpen = true"/>
+        <div v-if="availableProducts.length > 0">
+            <custom-button buttonText="+" button-color="blue" @button-click="isModalProductListOpen = true"/>
         </div>
         <div v-if="isModalProductListOpen" class="modal-overlay">
-            <custom-button id="button-close-modal" buttonText="X" button-color="red" 
+            <custom-button id="button-close-modal" buttonText="<" button-color="blue" 
                 @button-click="isModalProductListOpen = false"/>
             <div id="modal-all-products-list">
                 <custom-button v-for="product in availableProducts" :buttonText="product.name" buttonColor="blueviolet" 
@@ -84,7 +98,7 @@
     <div v-if="isModalProductFormOpen" class="modal-overlay">
       <div id="modal-create-product-form">
         <custom-button id="button-close-modal" buttonText="X" button-color="red" @button-click="isModalProductFormOpen = false"/>
-        <product-form/>
+        <product-form :is-open="isModalProductFormOpen" @close-modal="handleProductFormModal"/>
       </div>
     </div>
     <hr>

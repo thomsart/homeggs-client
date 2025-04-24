@@ -8,7 +8,7 @@ const { token } = useToken();
 export function callShop() {
     const url = new APIRoutes();
     let response_datas = null;
-    let error = '';
+    let error = null;
 
     // generic function for API calls
     const fetcher = async ({ endpoint, id, method='GET', params={}, body=null}) => {
