@@ -7,11 +7,16 @@
     import CustomButton from './CustomButton.vue'
     import ProductForm from './ProductForm.vue'
 
+    const products = reactive([]);
+    // Filter products in order to only display missing products.
+    const missedProducts = computed(() => products.filter(product => product.missing === true));
+    const availableProducts = computed(() => products.filter(product => product.missing === false));
+    const isModalAvailableProductsOpen = ref(false); // modale for available product
+    const isModalProductFormOpen = ref(false);
+
     onMounted(async () => {
         await loadProducts();
     });
-
-    const products = reactive([]);
 
     async function loadProducts() {
         try {
@@ -42,6 +47,17 @@
         }
     }
 
+    // this watch is used to close the modal-available-products-list directly when its empty for use's confort
+    watch(availableProducts, 
+        (currentValue) => {
+            if (currentValue.length < 1) {
+                // console.log("watch(availableProducts) No available products anymore...");
+                isModalAvailableProductsOpen.value = false;
+            }
+        },
+        { immediate: true }
+    );
+
     const handleProductFormModal = async () => {
         isModalProductFormOpen.value = false; // To close modal-create-product-form
         await loadProducts();
@@ -51,21 +67,9 @@
 
     }
 
-    // Filter products in order to only display missing products.
-    const missedProducts = computed(() => products.filter(product => product.missing === true));
-    const availableProducts = computed(() => products.filter(product => product.missing === false));
-    const isModalProductListOpen = ref(false);
-    const isModalProductFormOpen = ref(false);
 
-    watch(availableProducts, 
-        (currentValue) => {
-            if (currentValue.length < 1) {
-                // console.log("watch(availableProducts) No available products anymore...");
-                isModalProductListOpen.value = false;
-            }
-        },
-        { immediate: true }
-    );
+
+
 
 </script>
 
@@ -80,12 +84,12 @@
         <custom-button v-for="product in missedProducts" :buttonText="product.name" buttonColor="blueviolet" 
             @button-click="handleAddDelToList(product)"/>
         <div v-if="availableProducts.length > 0">
-            <custom-button buttonText="+" button-color="blue" @button-click="isModalProductListOpen = true"/>
+            <custom-button buttonText="+" button-color="blue" @button-click="isModalAvailableProductsOpen = true"/>
         </div>
-        <div v-if="isModalProductListOpen" class="modal-overlay">
+        <div v-if="isModalAvailableProductsOpen" class="modal-overlay">
             <custom-button id="button-close-modal" buttonText="<" button-color="blue" 
-                @button-click="isModalProductListOpen = false"/>
-            <div id="modal-all-products-list">
+                @button-click="isModalAvailableProductsOpen = false"/>
+            <div id="modal-available-products-list">
                 <custom-button v-for="product in availableProducts" :buttonText="product.name" buttonColor="blueviolet" 
                     @button-click="handleAddDelToList(product)"/>
             </div>
@@ -97,7 +101,7 @@
 
     <div v-if="isModalProductFormOpen" class="modal-overlay">
       <div id="modal-create-product-form">
-        <custom-button id="button-close-modal" buttonText="X" button-color="red" @button-click="isModalProductFormOpen = false"/>
+        <custom-button id="button-close-modal" buttonText="<" button-color="blue" @button-click="isModalProductFormOpen = false"/>
         <product-form :is-open="isModalProductFormOpen" @close-modal="handleProductFormModal"/>
       </div>
     </div>
@@ -128,7 +132,7 @@
         justify-content: center;
         align-items: center;
     }
-    #modal-all-products-list {
+    #modal-available-products-list {
         position: relative;
         background-color: white;
         display: flex;
@@ -147,7 +151,7 @@
         height: 30%;
         border: solid 3px;
         border-color: rgb(0, 0, 0);
-        border-radius: 1em;
+        border-radius: 0.5em;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     #button-close-modal {
