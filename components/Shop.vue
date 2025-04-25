@@ -8,14 +8,26 @@
     import ProductForm from './ProductForm.vue'
 
     const products = reactive([]);
-    // Filter products in order to only display missing products.
-    const missedProducts = computed(() => products.filter(product => product.missing === true));
-    const availableProducts = computed(() => products.filter(product => product.missing === false));
+    const missedProducts = computed(() => products.filter(product => product.missing === true)); // Filter products in order to only display missing products.
+    const availableProducts = computed(() => products.filter(product => product.missing === false)); // Filter products in order to only display available products.
     const isModalAvailableProductsOpen = ref(false); // modale for available product
-    const isModalProductFormOpen = ref(false);
+    const isModalProductFormOpen = ref(false); // modale for product form
+    const isLongPress = ref(false); // notice if a long press was detected
+    let startTimer = null; // stock the timer for long press
+    let isPressing = false; // notice if the user is pressing the button
 
     onMounted(async () => {
         await loadProducts();
+        document.getElementById("product-button").addEventListener("mousedown", () => {
+        timer.clickDown(); // Start measuring time
+        });
+        document.getElementById("product-button").addEventListener("mouseup", () => {
+            if (timer.clickUp()) {
+                console.log("Long click detected!");
+            } else {
+                console.log("Short click detected!");
+            }
+        });
     });
 
     async function loadProducts() {
@@ -58,18 +70,34 @@
         { immediate: true }
     );
 
-    const handleProductFormModal = async () => {
-        isModalProductFormOpen.value = false; // To close modal-create-product-form
-        await loadProducts();
+    const handleMouseDown = (product) => {
+        isPressing = true;
+        startTimer = setTimeout(() => {
+            isLongPress.value = true; // notice long press
+            console.log('Cliiiiick!');
+            console.log(product);
+            // Here we decide to display the product in a modal => modal-product-grid in which the product will 
+            // be display completly and 2 buttons one for the updating and an other to delete it.
+        }, 1000); // 1 seconde
     };
 
-    async function handleDeleteProduct(productId) {
-
-    }
-
-
-
-
+    const handleMouseUp = (product) => {
+        isPressing = false;
+        clearTimeout(startTimer); // cancel the timer if the user drop the click before 1 sec
+        if (!isLongPress.value) {
+            console.log('Click!');
+            // Here and only here we decide to take off from list the missed Product
+            handleAddDelToList(product);
+        }
+        isLongPress.value = false; // reinitiate the value
+    };
+    const handleMouseLeave = () => {
+        // canceled the short click only if clickdown is detected
+        if (isPressing) {
+            clearTimeout(startTimer);
+            isLongPress.value = false;
+        }
+    };
 
 </script>
 
@@ -81,8 +109,10 @@
     <h3 v-else>Fais ta liste de course</h3>
 
     <div id="shopList">
-        <custom-button v-for="product in missedProducts" :buttonText="product.name" buttonColor="blueviolet" 
-            @button-click="handleAddDelToList(product)"/>
+        <custom-button v-for="product in missedProducts" class="product-button" :buttonText="product.name" buttonColor="blueviolet"
+            @mousedown="handleMouseDown(product)" 
+            @mouseup="handleMouseUp(product)" 
+            @mouseleave="handleMouseLeave" />
         <div v-if="availableProducts.length > 0">
             <custom-button buttonText="+" button-color="blue" @button-click="isModalAvailableProductsOpen = true"/>
         </div>
@@ -97,7 +127,6 @@
     </div>
 
     <custom-button buttonText="Create product" button-color="blue" @button-click="isModalProductFormOpen = true"/>
-    <custom-button buttonText="Delete product" button-color="red" @button-click="handleDeleteProduct(name)"/>
 
     <div v-if="isModalProductFormOpen" class="modal-overlay">
       <div id="modal-create-product-form">

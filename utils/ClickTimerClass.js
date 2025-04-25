@@ -3,7 +3,7 @@ class ClickTimer {
     constructor(delta = 1000) {
         // Time threshold in milliseconds (default: 1 second)
         this.delta = delta;
-        this.start = null; // Timestamp of clickDown
+        this.start = ''; // Timestamp of clickDown
     }
 
     clickDown() {
