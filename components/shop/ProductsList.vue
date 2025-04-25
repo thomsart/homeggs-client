@@ -6,6 +6,7 @@
 
     import CustomButton from '../CustomButton.vue'
     import ProductForm from './ProductForm.vue'
+    import ProductCard from './ProductCard.vue'
 
     const products = reactive([]);
     const missedProducts = computed(() => products.filter(product => product.missing === true)); // Filter products in order to only display missing products.
@@ -15,6 +16,7 @@
     const isLongPress = ref(false); // notice if a long press was detected
     let startTimer = null; // stock the timer for long press
     let isPressing = false; // notice if the user is pressing the button
+    const clickedProduct = reactive({}); // We store the clicked product for the child component ProductCard
 
     onMounted(async () => {
         await loadProducts();
@@ -64,8 +66,9 @@
         isPressing = true;
         startTimer = setTimeout(() => {
             isLongPress.value = true; // notice long press
-            console.log('Cliiiiick!');
-            console.log(product);
+            Object.assign(clickedProduct, product);
+            // console.log('Cliiiiick!');
+            console.log(clickedProduct);
             // Here we decide to display the product in a modal => modal-product-grid in which the product will 
             // be display completly and 2 buttons one for the updating and an other to delete it.
         }, 1000); // 1 seconde
@@ -102,7 +105,10 @@
         <custom-button v-for="product in missedProducts" class="product-button" :buttonText="product.name" buttonColor="blueviolet"
             @mousedown="handleMouseDown(product)" 
             @mouseup="handleMouseUp(product)" 
-            @mouseleave="handleMouseLeave" />
+            @mouseleave="handleMouseLeave"/>
+        <div  v-if="isLongPress" class="modal-overlay">
+            <product-card :product="clickedProduct"/>
+        </div>
         <div v-if="availableProducts.length > 0">
             <custom-button buttonText="+" button-color="blue" @button-click="isModalAvailableProductsOpen = true"/>
         </div>
