@@ -10,11 +10,11 @@
     const emit = defineEmits(['close-modal']);
     const handlePostProduct = async () => {
         try {
-            console.log(product.createProduct());
+            console.log(product.toSendInBody());
             const callProduct = callShop();
-            await callProduct.postProduct(product.createProduct());
+            await callProduct.postProduct(product.toSendInBody());
+            console.log("handlePostProduct => product created: ", product);
             emit('close-modal');
-            console.log("handlePostProduct => product created: ", product);            
         } catch (error) {
             console.error(`handlePostProduct => Erreur lors de la creation du produit ${product.name} :`, error);
         }

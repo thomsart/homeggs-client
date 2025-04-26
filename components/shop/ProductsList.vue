@@ -11,6 +11,7 @@
     const products = reactive([]);
     const missedProducts = computed(() => products.filter(product => product.missing === true)); // Filter products in order to only display missing products.
     const availableProducts = computed(() => products.filter(product => product.missing === false)); // Filter products in order to only display available products.
+    const isModalSelectedProductOpen = ref(false); // modale for selected product
     const isModalAvailableProductsOpen = ref(false); // modale for available product
     const isModalProductFormOpen = ref(false); // modale for product form
     const isLongPress = ref(false); // notice if a long press was detected
@@ -66,11 +67,9 @@
         isPressing = true;
         startTimer = setTimeout(() => {
             isLongPress.value = true; // notice long press
+            isModalSelectedProductOpen.value = true; // to keep open the modale
             Object.assign(clickedProduct, product);
             // console.log('Cliiiiick!');
-            console.log(clickedProduct);
-            // Here we decide to display the product in a modal => modal-product-grid in which the product will 
-            // be display completly and 2 buttons one for the updating and an other to delete it.
         }, 1000); // 1 seconde
     };
 
@@ -78,14 +77,13 @@
         isPressing = false;
         clearTimeout(startTimer); // cancel the timer if the user drop the click before 1 sec
         if (!isLongPress.value) {
-            console.log('Click!');
-            // Here and only here we decide to take off from list the missed Product
-            handleAddDelToList(product);
+            // console.log('Click!');
+            handleAddDelToList(product); // Here and only here we decide to take off from list the missed Product
         }
-        isLongPress.value = false; // reinitiate the value
+        isLongPress.value = false;
     };
+    // canceled the short click only if clickdown is detected
     const handleMouseLeave = () => {
-        // canceled the short click only if clickdown is detected
         if (isPressing) {
             clearTimeout(startTimer);
             isLongPress.value = false;
@@ -106,7 +104,8 @@
             @mousedown="handleMouseDown(product)" 
             @mouseup="handleMouseUp(product)" 
             @mouseleave="handleMouseLeave"/>
-        <div  v-if="isLongPress" class="modal-overlay">
+        <div  v-if="isModalSelectedProductOpen" class="modal-overlay">
+            <custom-button id="button-close-modal" buttonText="<" button-color="blue" @button-click="isModalSelectedProductOpen = false"/>
             <product-card :product="clickedProduct"/>
         </div>
         <div v-if="availableProducts.length > 0">
@@ -127,7 +126,7 @@
     <div v-if="isModalProductFormOpen" class="modal-overlay">
       <div id="modal-create-product-form">
         <custom-button id="button-close-modal" buttonText="<" button-color="blue" @button-click="isModalProductFormOpen = false"/>
-        <product-form :is-open="isModalProductFormOpen" @close-modal="handleProductFormModal"/>
+        <product-form :is-open="isModalProductFormOpen" @close-modal="isModalProductFormOpen = false & loadProducts()"/>
       </div>
     </div>
     <hr>

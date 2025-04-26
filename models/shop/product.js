@@ -30,7 +30,7 @@ class Product  {
         }
     };
 
-    createProduct() {
+    toSendInBody() {
         // problem here is this.kilo and this.litre which are supposed to be float
         return {
             name: this.name,
