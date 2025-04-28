@@ -17,7 +17,7 @@
     const isLongPress = ref(false); // notice if a long press was detected
     let startTimer = null; // stock the timer for long press
     let isPressing = false; // notice if the user is pressing the button
-    const clickedProduct = reactive({}); // We store the clicked product for the child component ProductCard
+    let clickedProduct = {}; // We store the clicked product for the child component ProductCard
 
     onMounted(async () => {
         await loadProducts();
@@ -68,7 +68,9 @@
         startTimer = setTimeout(() => {
             isLongPress.value = true; // notice long press
             isModalSelectedProductOpen.value = true; // to keep open the modale
+            // console.log("product dans MouseDown", product);
             Object.assign(clickedProduct, product);
+            // console.log("clickedProduct dans MouseDown", clickedProduct);
             // console.log('Cliiiiick!');
         }, 1000); // 1 seconde
     };

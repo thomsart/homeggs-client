@@ -23,7 +23,7 @@
 
 <template>
 
-    <button :style="{'--button-bg': buttonColor}" @click="handleClick" class="custom-button">{{ buttonText }}</button>
+    <button type="button" :style="{'--button-bg': buttonColor}" @click="handleClick" class="custom-button">{{ buttonText }}</button>
 
 </template>
 
