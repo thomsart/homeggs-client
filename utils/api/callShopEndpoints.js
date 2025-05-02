@@ -1,7 +1,5 @@
-import { ref, reactive } from 'vue'
 import APIRoutes from './APIRoutes.js'
 import { useToken } from '../../composables/token.js'
-import Product from '../../models/shop/product.js'
 
 const { token } = useToken();
 
