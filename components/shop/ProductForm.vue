@@ -8,12 +8,13 @@
 
     const product = reactive(new Product());
     const emit = defineEmits(['close-modal']);
+
     const handlePostProduct = async () => {
         try {
             console.log(product.toSendInBody());
             const callProduct = callShop();
             await callProduct.postProduct(product.toSendInBody());
-            console.log("handlePostProduct => product created: ", product);
+            // console.log("handlePostProduct => product created: ", product);
             emit('close-modal');
         } catch (error) {
             console.error(`handlePostProduct => Erreur lors de la creation du produit ${product.name} :`, error);
@@ -29,7 +30,7 @@
         <div id="product-inputs" v-for="(value, key) in product.formFields()" :key="key">
             <input :id="key" :name="key" v-model="product[key]"  :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
         </div>
-        <Custom-button id="button-validation" buttonText="ajoute" buttonCollor="blue">Ajoute</Custom-button>
+        <custom-button id="button-validation" buttonText="ajoute" buttonCollor="blue">Ajoute</custom-button>
 
     </form>
 
