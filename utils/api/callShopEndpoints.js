@@ -33,6 +33,9 @@ export function callShop() {
             if (!response.ok) {
                 throw new Error(`Request failed with status ${response.status}`);
             }
+            if (method==='DELETE') {
+                return response;
+            }
             return await response.json();
         } catch (err) {
             error = err;
@@ -90,6 +93,7 @@ export function callShop() {
                     method: 'DELETE',
                     id: options.id,
                 });
+                response_datas = deleteProductResponse;
                 break;
             ///////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////

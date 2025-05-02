@@ -108,7 +108,7 @@
             @mouseleave="handleMouseLeave"/>
         <div  v-if="isModalSelectedProductOpen" class="modal-overlay">
             <custom-button id="button-close-modal" buttonText="<" button-color="blue" @button-click="isModalSelectedProductOpen = false"/>
-            <product-card :product="clickedProduct" @close-modal="isModalSelectedProductOpen = false & loadProducts()"/>
+            <product-card :product="clickedProduct" :is-open="isModalSelectedProductOpen" @close-modal="isModalSelectedProductOpen = false & loadProducts()"/>
         </div>
         <div v-if="availableProducts.length > 0">
             <custom-button buttonText="+" button-color="blue" @button-click="isModalAvailableProductsOpen = true"/>
