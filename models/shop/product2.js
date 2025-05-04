@@ -2,7 +2,7 @@ import Api from '../apiCalls'
 
 
 
-class Product extends Api {
+class Product2 extends Api {
     constructor({id=0, 
                 name="", 
                 quantity=0, 
@@ -36,7 +36,8 @@ class Product extends Api {
     };
 
     toSendInBody() {
-        // problem here is this.kilo and this.litre which are supposed to be float
+        // problem here is this.kilo and this.litre 
+        // are supposed to be float
         return {
             name: this.name,
             quantity: this.quantity,
@@ -45,49 +46,80 @@ class Product extends Api {
         }
     };
 
+    getResponse() {
+        return {
+            datas: this.response,
+            error: this.error
+        }
+    }
+
     async getProducts() {
-        await this.call({
-            endpoint: this.productsUrl,
-        });
-        return this.response;
+        try {
+            this.response = await this.call({
+                endpoint: this.productsUrl,
+            });
+            return  this.getResponse();
+        } catch(err) {
+            console.error("Error in getProducts(): ", err);
+            return this.error = { error: err.message };
+        } 
     }
 
-    async postProduct(options = {}) {
-        await this.call({
-            endpoint: this.productsUrl,
-            method: 'POST',
-            body: options.body,
-        });
-        return this.response;
+    async postProduct(options={}) {
+        try {
+            await this.call({
+                endpoint: this.productsUrl,
+                method: 'POST',
+                body: options.body,
+            });
+            return this.getResponse();
+        } catch(err) {
+            console.error("Error in postProduct(): ", err);
+            return { error: err.message };
+        }
     }
 
-    async getProduct(options = {}) {
-        await this.call({
-            endpoint: this.productsUrl,
-            id: options.id,
-        });
-        return this.response;
+    async getProduct(options={}) {
+        try {
+            await this.call({
+                endpoint: this.productsUrl,
+                id: options.id,
+            });
+            return this.getResponse();
+        } catch(err) {
+            console.error("Error in getProduct(): ", err);
+            return { error: err.message };
+        }
     }
 
-    async updateProduct(options = {}) {
-        await this.call({
-            endpoint: this.productsUrl,
-            method: 'PATCH',
-            body: options.body,
-            id: options.id,
-        });
-        return this.response;
+    async updateProduct(options={}) {
+        try {
+            await this.call({
+                endpoint: this.productsUrl,
+                method: 'PATCH',
+                body: options.body,
+                id: options.id,
+            });
+            return this.getResponse();
+        } catch(err) {
+            console.error("Error in updateProduct(): ", err);
+            return { error: err.message };
+        }
     }
 
-    async deleteProduct(options = {}) {
-        await this.call({
-            endpoint: this.productsUrl,
-            method: 'DELETE',
-            id: options.id,
-        });
-        return this.response;
+    async deleteProduct(options={}) {
+        try {
+            await this.call({
+                endpoint: this.productsUrl,
+                method: 'DELETE',
+                id: options.id,
+            });
+            return this.getResponse();
+        } catch(err) {
+            console.error("Error in deleteProduct(): ", err);
+            return { error: err.message };
+        }
     }
-
 }
 
-export default Product;
+export default Product2;

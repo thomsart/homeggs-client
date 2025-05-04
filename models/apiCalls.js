@@ -1,4 +1,4 @@
-import { useToken } from '../../composables/token.js'
+import { useToken } from '../composables/token.js'
 
 const { token } = useToken();
 
@@ -36,18 +36,20 @@ class Api  {
 
     // general method for API calls
     async call({ endpoint, id, method='GET', params={}, body=null}) {    
+        this.response = null;
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Token ${token.value}`,
             };
-            if (id) {
-                endpoint = `${endpoint}${id}/`;
-            };
+            let url = new URL(endpoint);
             Object.entries(params).forEach(([key, value]) => {
                 url.searchParams.append(key, value);
             });
+            if (id) {
+                endpoint = `${endpoint}${id}/`;
+            };
             this.response = await fetch(endpoint, {
                 method,
                 headers,
@@ -59,7 +61,7 @@ class Api  {
             if (method==='DELETE') {
                 return this.response;
             }
-            return await this.response.json();
+            return this.response.json();
         } catch (err) {
             this.error = err;
             throw err;

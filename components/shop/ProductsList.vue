@@ -3,6 +3,7 @@
     import { ref, reactive, onMounted, computed, watch } from 'vue'
     import { callShop } from '../../utils/api/callShopEndpoints.js'
     import Product from '../../models/shop/product.js'
+    import Product2 from '../../models/shop/product2.js'
 
     import CustomButton from '../CustomButton.vue'
     import ProductForm from './ProductForm.vue'
@@ -25,27 +26,19 @@
 
     async function loadProducts() {
         try {
-            const callProducts = callShop();
-            await callProducts.allProducts();
-            const fetchedProducts = callProducts.getDatas();
-            // console.log("loadProducts() =>  fetchedProducts: " + JSON.stringify(fetchedProducts));
-            products.splice(0, products.length, ...fetchedProducts.map(product => new Product(product)));
-            // products.forEach(product =>{console.log(product);})
+            const Products = new Product2();
+            const fetchedProducts = await Products.getProducts();
+            // console.log("In loadProducts(), fetchedProducts: " + JSON.stringify(fetchedProducts.datas));
+            products.splice(0, products.length, ...fetchedProducts.datas.map(product => new Product(product)));
         } catch (error) {
-            console.error("Erreur lors de la récupération des produits dans loadProducts() => :", error);
+            console.error("Error in loadProducts(): ", error);
         }
-        // console.log("loadProducts() => reactive products: ", JSON.stringify(products));
     }
 
     async function handleAddDelToList(product) {
         try {
             const callProducts = callShop();
             await callProducts.updateProduct(product.id, { missing: !product.missing });
-            // if (product.missing === true) {
-            //     console.log(`handleAddDelToList => ${product.name} retiré de la liste.`);
-            // } else {
-            //     console.log(`handleAddDelToList => ${product.name} mis dans la liste.`);
-            // }
             await loadProducts(); // Refresh products after updating
         } catch (error) {
             console.error(`handleAddDelToList => Erreur lors du retrait du produit ${product.name} :`, error);
@@ -56,7 +49,6 @@
     watch(availableProducts, 
         (currentValue) => {
             if (currentValue.length < 1) {
-                // console.log("watch(availableProducts) No available products anymore...");
                 isModalAvailableProductsOpen.value = false;
             }
         },
