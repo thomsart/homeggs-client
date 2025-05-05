@@ -2,7 +2,7 @@ import Api from '../apiCalls'
 
 
 
-class Product2 extends Api {
+class Product extends Api {
     constructor({id=0, 
                 name="", 
                 quantity=0, 
@@ -26,7 +26,7 @@ class Product2 extends Api {
         this.photo = photo;
     }
 
-    formFields() {
+    createForm() {
         return {
             name: "",
             quantity: 0.0,
@@ -122,4 +122,4 @@ class Product2 extends Api {
     }
 }
 
-export default Product2;
+export default Product;

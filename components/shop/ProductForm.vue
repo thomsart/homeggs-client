@@ -1,23 +1,21 @@
 <script setup>
 
     import { reactive } from 'vue'
-    import { callShop } from '../../utils/api/callShopEndpoints.js'
-    import Product from '../../models/shop/product.js'
+    import Product from '../../models/shop/product2.js'
 
     import CustomButton from '../CustomButton.vue'
 
-    const product = reactive(new Product());
+    const newProduct = reactive(new Product());
     const emit = defineEmits(['close-modal']);
 
     const handlePostProduct = async () => {
         try {
-            console.log(product.toSendInBody());
-            const callProduct = callShop();
-            await callProduct.postProduct(product.toSendInBody());
-            // console.log("handlePostProduct => product created: ", product);
+            console.log(newProduct.toSendInBody());
+            const product = new Product();
+            await product.postProduct({body: newProduct.toSendInBody()});
             emit('close-modal');
         } catch (error) {
-            console.error(`Error in handlePostProduct() with ${product.name}: `, error);
+            console.error(`Error in handlePostProduct() with ${newProduct.name}: `, error);
         }
     };
 
@@ -27,8 +25,8 @@
 
     <form id="product-form" @submit.prevent="handlePostProduct()">
 
-        <div id="product-inputs" v-for="(value, key) in product.formFields()" :key="key">
-            <input :id="key" :name="key" v-model="product[key]"  :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
+        <div id="product-inputs" v-for="(value, key) in newProduct.createForm()" :key="key">
+            <input :id="key" :name="key" v-model="newProduct[key]"  :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
         </div>
         <custom-button id="button-validation" buttonText="ajoute" buttonCollor="blue">Ajoute</custom-button>
 
