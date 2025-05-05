@@ -41,7 +41,7 @@
             await callProducts.updateProduct(product.id, { missing: !product.missing });
             await loadProducts(); // Refresh products after updating
         } catch (error) {
-            console.error(`handleAddDelToList => Erreur lors du retrait du produit ${product.name} :`, error);
+            console.error(`Error in handleAddDelToList(): ${product.name} :`, error);
         }
     }
 

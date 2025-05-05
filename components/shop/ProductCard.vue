@@ -19,7 +19,7 @@
 
     const handleUpdateProduct = async (product) => {
         if (!product || !product.id) {
-            console.error("Le produit n'est pas défini ou n'a pas d'ID.");
+            console.error("Error in handleUpdateProduct() with ID.");
             return;
         }
         try {
@@ -28,13 +28,13 @@
             // console.log("handleUpdateProduct => product updated: ", productAttributesToUpdate);
             emit('close-modal');
         } catch(error) {
-            console.log(`handleUpdateProduct => Erreur lors de la modification du produit ${product.name} :`, error)
+            console.log(`Error in handleUpdateProduct with ${product.name}: `, error)
         }
     }
 
     const handleDeleteProduct = async (product) => {
         if (!product || !product.id) {
-            console.error("Le produit n'est pas défini ou n'a pas d'ID.");
+            console.error("Error in handleDeleteProduct() with ID.");
             return;
         }
         try {
@@ -43,7 +43,7 @@
             // console.log("handleDeleteProduct => product deleted");
             emit('close-modal');
         } catch(error) {
-            console.log(`handleDeleteProduct => Erreur lors de la suppression du produit ${product.name} :`, error)
+            console.log(`Error in handleDeleteProduct() with ${product.name}: `, error)
         }
     }
 

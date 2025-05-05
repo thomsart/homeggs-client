@@ -17,7 +17,7 @@
             // console.log("handlePostProduct => product created: ", product);
             emit('close-modal');
         } catch (error) {
-            console.error(`handlePostProduct => Erreur lors de la creation du produit ${product.name} :`, error);
+            console.error(`Error in handlePostProduct() with ${product.name}: `, error);
         }
     };
 
