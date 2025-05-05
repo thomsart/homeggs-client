@@ -58,7 +58,7 @@ class Api  {
             if (!this.response.ok) {
                 throw new Error(`Request failed with status ${response.status}`);
             }
-            if (method==='DELETE') {
+            if (method==='DELETE' & this.response.ok) {
                 return this.response;
             }
             return this.response.json();

@@ -1,7 +1,6 @@
 <script setup>
 
     import { reactive } from 'vue'
-    import { callShop } from '../../utils/api/callShopEndpoints.js'
     import Product from '../../models/shop/product.js'
 
     import CustomButton from '../CustomButton.vue'
@@ -17,33 +16,29 @@
     const productAttributesToUpdate = reactive({});
     const emit = defineEmits(['close-modal']); // to use if the response is ok
 
-    const handleUpdateProduct = async (product) => {
-        if (!product || !product.id) {
-            console.error("Error in handleUpdateProduct() with ID.");
-            return;
+    const handleUpdateProduct = async (propsProduct) => {
+        if (!propsProduct || !propsProduct.id) {
+            return console.error("Error in handleUpdateProduct() with ID.");
         }
         try {
-            const callProducts = callShop();
-            await callProducts.updateProduct(product.id, productAttributesToUpdate);
-            // console.log("handleUpdateProduct => product updated: ", productAttributesToUpdate);
+            const product = new Product();
+            await product.updateProduct({id: propsProduct.id, body: productAttributesToUpdate});
             emit('close-modal');
         } catch(error) {
-            console.log(`Error in handleUpdateProduct with ${product.name}: `, error)
+            console.log(`Error in handleUpdateProduct with ${selectedProduct.name}: `, error)
         }
     }
 
-    const handleDeleteProduct = async (product) => {
-        if (!product || !product.id) {
-            console.error("Error in handleDeleteProduct() with ID.");
-            return;
+    const handleDeleteProduct = async (propsProduct) => {
+        if (!propsProduct || !propsProduct.id) {
+            return console.error("Error in handleDeleteProduct() with ID.");
         }
         try {
-            const callProducts = callShop();
-            await callProducts.deleteProduct(product.id);
-            // console.log("handleDeleteProduct => product deleted");
+            const product = new Product();
+            await product.deleteProduct({id: propsProduct.id});
             emit('close-modal');
         } catch(error) {
-            console.log(`Error in handleDeleteProduct() with ${product.name}: `, error)
+            console.log(`Error in handleDeleteProduct() with ${propsProduct.name}: `, error)
         }
     }
 

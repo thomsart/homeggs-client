@@ -1,7 +1,7 @@
 <script setup>
 
     import { ref, reactive, onMounted, computed, watch } from 'vue'
-    import Product from '../../models/shop/product2.js'
+    import Product from '../../models/shop/product.js'
 
     import CustomButton from '../CustomButton.vue'
     import ProductForm from './ProductForm.vue'
@@ -27,7 +27,7 @@
             const products = new Product();
             const fetchedProducts = await products.getProducts();
             // console.log("In loadProducts(), fetchedProducts: " + JSON.stringify(fetchedProducts.datas));
-            displayedProducts.splice(0, fetchedProducts.datas.length, ...fetchedProducts.datas.map(product => new Product(product)));
+            displayedProducts.splice(0, displayedProducts.length, ...fetchedProducts.datas.map(product => new Product(product)));
         } catch (error) {
             console.error("Error in loadProducts(): ", error);
         }

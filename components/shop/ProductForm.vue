@@ -1,7 +1,7 @@
 <script setup>
 
     import { reactive } from 'vue'
-    import Product from '../../models/shop/product2.js'
+    import Product from '../../models/shop/product.js'
 
     import CustomButton from '../CustomButton.vue'
 
@@ -10,7 +10,7 @@
 
     const handlePostProduct = async () => {
         try {
-            console.log(newProduct.toSendInBody());
+            // console.log(newProduct.toSendInBody());
             const product = new Product();
             await product.postProduct({body: newProduct.toSendInBody()});
             emit('close-modal');
