@@ -1,17 +1,15 @@
 <script setup>
 
     import { ref, reactive, onMounted, computed, watch } from 'vue'
-    import { callShop } from '../../utils/api/callShopEndpoints.js'
-    import Product from '../../models/shop/product.js'
-    import Product2 from '../../models/shop/product2.js'
+    import Product from '../../models/shop/product2.js'
 
     import CustomButton from '../CustomButton.vue'
     import ProductForm from './ProductForm.vue'
     import ProductCard from './ProductCard.vue'
 
-    const products = reactive([]);
-    const missedProducts = computed(() => products.filter(product => product.missing === true)); // Filter products in order to only display missing products.
-    const availableProducts = computed(() => products.filter(product => product.missing === false)); // Filter products in order to only display available products.
+    const displayedProducts = reactive([]);
+    const missedProducts = computed(() => displayedProducts.filter(product => product.missing === true)); // Filter products in order to only display missing products.
+    const availableProducts = computed(() => displayedProducts.filter(product => product.missing === false)); // Filter products in order to only display available products.
     const isModalSelectedProductOpen = ref(false); // modale for selected product
     const isModalAvailableProductsOpen = ref(false); // modale for available product
     const isModalProductFormOpen = ref(false); // modale for product form
@@ -26,22 +24,22 @@
 
     async function loadProducts() {
         try {
-            const Products = new Product2();
-            const fetchedProducts = await Products.getProducts();
+            const products = new Product();
+            const fetchedProducts = await products.getProducts();
             // console.log("In loadProducts(), fetchedProducts: " + JSON.stringify(fetchedProducts.datas));
-            products.splice(0, products.length, ...fetchedProducts.datas.map(product => new Product(product)));
+            displayedProducts.splice(0, fetchedProducts.datas.length, ...fetchedProducts.datas.map(product => new Product(product)));
         } catch (error) {
             console.error("Error in loadProducts(): ", error);
         }
     }
 
-    async function handleAddDelToList(product) {
+    async function handleAddDelToList(selectedProduct) {
         try {
-            const callProducts = callShop();
-            await callProducts.updateProduct(product.id, { missing: !product.missing });
+            const product = new Product();
+            await product.updateProduct({id: selectedProduct.id, body: {missing: !selectedProduct.missing}});
             await loadProducts(); // Refresh products after updating
         } catch (error) {
-            console.error(`Error in handleAddDelToList(): ${product.name} :`, error);
+            console.error(`Error in handleAddDelToList(): ${selectedProduct.name} :`, error);
         }
     }
 
@@ -55,24 +53,24 @@
         { immediate: true }
     );
 
-    const handleMouseDown = (product) => {
+    const handleMouseDown = (selectedProduct) => {
         isPressing = true;
         startTimer = setTimeout(() => {
             isLongPress.value = true; // notice long press
             isModalSelectedProductOpen.value = true; // to keep open the modale
             // console.log("product dans MouseDown", product);
-            Object.assign(clickedProduct, product);
+            Object.assign(clickedProduct, selectedProduct);
             // console.log("clickedProduct dans MouseDown", clickedProduct);
             // console.log('Cliiiiick!');
         }, 1000); // 1 seconde
     };
 
-    const handleMouseUp = (product) => {
+    const handleMouseUp = (selectedProduct) => {
         isPressing = false;
         clearTimeout(startTimer); // cancel the timer if the user drop the click before 1 sec
         if (!isLongPress.value) {
             // console.log('Click!');
-            handleAddDelToList(product); // Here and only here we decide to take off from list the missed Product
+            handleAddDelToList(selectedProduct); // Here and only here we decide to take off from list the missed Product
         }
         isLongPress.value = false;
     };
@@ -90,14 +88,14 @@
 
     <h2>Shopping List</h2>
 
-    <h3 v-if="products.length !== 0">A acheter: </h3>
+    <h3 v-if="displayedProducts.length !== 0">A acheter: </h3>
     <h3 v-else>Fais ta liste de course</h3>
 
     <div id="shopList">
         <custom-button v-for="product in missedProducts" class="product-button" :buttonText="product.name" buttonColor="blueviolet"
             @mousedown="handleMouseDown(product)" 
             @mouseup="handleMouseUp(product)" 
-            @mouseleave="handleMouseLeave"/>
+            @mouseleave="handleMouseLeave()"/>
         <div  v-if="isModalSelectedProductOpen" class="modal-overlay">
             <custom-button id="button-close-modal" buttonText="<" button-color="blue" @button-click="isModalSelectedProductOpen = false"/>
             <product-card :product="clickedProduct" :is-open="isModalSelectedProductOpen" @close-modal="isModalSelectedProductOpen = false & loadProducts()"/>
