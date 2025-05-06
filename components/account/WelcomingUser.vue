@@ -6,12 +6,11 @@
 
     import CustomButton from '../CustomButton.vue'
 
-    const { token, clearToken } = useToken();
+    const { clearToken } = useToken();
     const user = useUserStore();
 
     const handleLogout = async () => {
-        const callLogout = callAccount();
-        await callLogout.logout(token.value);
+        await user.logout();
         clearToken();
     };
 
