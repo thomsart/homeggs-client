@@ -1,10 +1,10 @@
 <script setup>
 
-    import { useToken } from '../composables/token.js'
-    import { callAccount } from '../utils/api/callAccountEndpoints.js'
-    import { useUserStore } from '../stores/user.js'
+    import { useToken } from '../../composables/token.js'
+    import { callAccount } from '../../utils/api/callAccountEndpoints.js'
+    import { useUserStore } from '../../stores/user.js'
 
-    import CustomButton from './CustomButton.vue'
+    import CustomButton from '../CustomButton.vue'
 
     const { token, clearToken } = useToken();
     const userStore = useUserStore();

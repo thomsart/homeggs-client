@@ -5,8 +5,8 @@
     import { useToken } from '../composables/token.js'
     import { useUserStore } from '../stores/user.js'
 
-    import LoginForm from '../components/LoginForm.vue'
-    import WelcomingUser from '../components/WelcomingUser.vue'
+    import LoginForm from '../components/account/LoginForm.vue'
+    import WelcomingUser from '../components/account/WelcomingUser.vue'
     import ShopList from '../components/shop/ProductsList.vue'
 
     const { token } = useToken();
