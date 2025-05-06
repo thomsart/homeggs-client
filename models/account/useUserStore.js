@@ -8,20 +8,25 @@ import Api from '../apiCalls.js'
 
 class User extends Api {
     constructor({id = null,
-                first_name = '',
-                last_name = '',
+                firstName = '',
+                lastName = '',
                 email = '',
                 phone = ''
             } = {}) {
+        super(); // Api constructor
         this.id = id;
-        this.firstName = first_name;
-        this.lastName = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.phone = phone;
     }
-    updateDetails({ name, email }) {
-        if (name) this.name = name;
+
+    updateDetails({id, first_name, last_name, email, phone}) {
+        if (id) this.id = id;
+        if (first_name) this.firstName = first_name;
+        if (last_name) this.lastName = last_name;
         if (email) this.email = email;
+        if (phone) this.phone = phone;
     }
 
     toSendInBody() {
@@ -78,10 +83,10 @@ export const useUserStore = defineStore('user', () => {
                 endpoint: state.meUrl,
                 method: 'GET',
             });
-            state = new User(state.response); // Object.assign({}, state.response) Met à jour l'utilisateur via le modèle
+            state.updateDetails(Object.assign({}, state.response)); // new User(state.response); // Object.assign({}, state.response) Met à jour l'utilisateur via le modèle
         } catch(err) {
             state.error = err;
-            console.error('Error fetching user:', err);
+            console.error("Error in get(): " , err);
         }
     }
 
@@ -111,6 +116,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     // Getters
+    const id = computed(() => state.id);
     const firstName = computed(() => state.firstName);
     const lastName = computed(() => state.lastName);
     const email = computed(() => state.email);
@@ -124,6 +130,7 @@ export const useUserStore = defineStore('user', () => {
         update,
         save,
         clear,
+        id,
         firstName,
         lastName,
         email,

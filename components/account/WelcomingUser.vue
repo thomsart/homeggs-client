@@ -2,12 +2,12 @@
 
     import { useToken } from '../../composables/token.js'
     import { callAccount } from '../../utils/api/callAccountEndpoints.js'
-    import { useUserStore } from '../../stores/user.js'
+    import { useUserStore } from '../../models/account/useUserStore.js'
 
     import CustomButton from '../CustomButton.vue'
 
     const { token, clearToken } = useToken();
-    const userStore = useUserStore();
+    const user = useUserStore();
 
     const handleLogout = async () => {
         const callLogout = callAccount();
@@ -20,11 +20,11 @@
 <template>
 
     <h2>Ton Compte</h2>
-    <h3>Bienvenue {{ userStore.firtsName }} {{ userStore.lastName }} !</h3>
+    <h3>Bienvenue {{ user.firstName }} {{ user.lastName }} !</h3>
     <custom-button buttonText="deconnexion" buttonColor="red" @button-click="handleLogout"></custom-button>
-    <p>id: {{ userStore.id }}</p>
-    <p>email: {{ userStore.email }}</p>
-    <p>phone: {{ userStore.phone }}</p>
+    <p>id: {{ user.id }}</p>
+    <p>email: {{ user.email }}</p>
+    <p>phone: {{ user.phone }}</p>
     <hr>
 
 </template>

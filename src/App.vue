@@ -1,24 +1,20 @@
 <script setup>
 
     import { onMounted, watchEffect } from 'vue'
-    import { callAccount } from '../utils/api/callAccountEndpoints.js'
     import { useToken } from '../composables/token.js'
-    import { useUserStore } from '../stores/user.js'
+    import { useUserStore } from '../models/account/useUserStore.js'
 
     import LoginForm from '../components/account/LoginForm.vue'
     import WelcomingUser from '../components/account/WelcomingUser.vue'
     import ShopList from '../components/shop/ProductsList.vue'
 
     const { token } = useToken();
-    const userStore = useUserStore();
+    const user = useUserStore();
 
     onMounted(() => {
-        const callMe = callAccount();
         const fetchUserIfTokenExists = async () => {
-            if (userStore.id === null && token.value !== null) {
-                await callMe.me(token.value);
-                userStore.setUser(callMe.datas.value);
-                // console.log('The user as it comes from API: ' + JSON.stringify(callMe.datas.value));
+            if (user.id === null && token.value !== null) {
+                await user.get();
             }}
         fetchUserIfTokenExists();
     })
