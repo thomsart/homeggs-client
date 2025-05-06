@@ -29,13 +29,6 @@ class User extends Api {
         if (phone) this.phone = phone;
     }
 
-    toSendInBody() {
-        return {
-            email: this.email,
-            password: this.password,
-        }
-    };
-
     getResponse() {
         return {
             datas: this.response,
@@ -83,17 +76,25 @@ export const useUserStore = defineStore('user', () => {
                 endpoint: state.meUrl,
                 method: 'GET',
             });
-            state.updateDetails(Object.assign({}, state.response)); // new User(state.response); // Object.assign({}, state.response) Met à jour l'utilisateur via le modèle
+            state.updateDetails(Object.assign({}, state.response));
         } catch(err) {
             state.error = err;
             console.error("Error in get(): " , err);
         }
     }
 
+
+
+
+
+
+
+
+
+
     function update(details) {
         state.user.updateDetails(details); // Appelle la méthode de la classe
     }
-
     async function save() {
         try {
             const response = await fetch(`http://api.example.com/users/${state.user.id}`, {
@@ -110,6 +111,13 @@ export const useUserStore = defineStore('user', () => {
             console.error('Error saving user:', err);
         }
     }
+
+
+
+
+
+    
+
 
     async function clear() {
 

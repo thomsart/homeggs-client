@@ -1,31 +1,30 @@
 <script setup>
 
     import { ref, watchEffect } from 'vue'
-    import { callAccount } from '../../utils/api/callAccountEndpoints.js'
     import { useToken } from '../../composables/token.js'
-    import { useUserStore } from '../../stores/user.js'
+    import { useUserStore } from '../../models/account/useUserStore.js'
 
     import CustomButton from '../CustomButton.vue'
 
     const { token, setToken } = useToken();
-    const userStore = useUserStore();
+    const user = useUserStore();
     const email = ref('');
     const password = ref('');
 
     const handleLogin = async () => {
-        const callLogin = callAccount();
-        const callMe = callAccount();
 
         if (!email.value || !password.value) {
             console.error("Email and password are required!");
             return;
         }
-        await callLogin.login(email.value, password.value);
-        setToken(callLogin.datas.value.auth_token);
+        await user.login({body: {'email': email.value, 'password': password.value}});
+        const reponse = user.getResponse();
+        console.log(reponse);
+        // console.log("Where...?");
+        // setToken(user.response.datas.auth_token);
 
         if (token.value) {
-            await callMe.me(token.value);
-            userStore.setUser(callMe.datas.value); // update user in store
+            await user.get(); // set user in store with fetched user form get() method
         }
     };
 

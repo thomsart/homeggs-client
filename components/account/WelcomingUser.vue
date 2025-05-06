@@ -1,7 +1,6 @@
 <script setup>
 
     import { useToken } from '../../composables/token.js'
-    import { callAccount } from '../../utils/api/callAccountEndpoints.js'
     import { useUserStore } from '../../models/account/useUserStore.js'
 
     import CustomButton from '../CustomButton.vue'
@@ -21,9 +20,8 @@
     <h2>Ton Compte</h2>
     <h3>Bienvenue {{ user.firstName }} {{ user.lastName }} !</h3>
     <custom-button buttonText="deconnexion" buttonColor="red" @button-click="handleLogout"></custom-button>
-    <p>id: {{ user.id }}</p>
-    <p>email: {{ user.email }}</p>
-    <p>phone: {{ user.phone }}</p>
+    <p>your email: {{ user.email }}</p>
+    <p>your phone: {{ user.phone }}</p>
     <hr>
 
 </template>

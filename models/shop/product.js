@@ -34,17 +34,6 @@ class Product extends Api {
         }
     };
 
-    toSendInBody() {
-        // problem here is this.kilo and this.litre 
-        // are supposed to be float
-        return {
-            name: this.name,
-            quantity: this.quantity,
-            kilo: this.kilo,
-            litre: this.litre
-        }
-    };
-
     getResponse() {
         return {
             datas: this.response,
