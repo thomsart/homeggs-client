@@ -30,23 +30,28 @@ class Api  {
         this.shopsUrl = this.shopUrl + 'shops/';
         ///////////////////////////////////////////////////////////////////////
 
+
+
+        ///////////////////////////////////////////////////////////////////////
         this.response = null;
         this.error = null;
     }
 
     // general method for API calls
-    async call({ endpoint, id, method='GET', params={}, body=null}) {    
+    async call({ endpoint, requiresAuth=true, id, method='GET', params={}, body=null}) {    
         this.response = null;
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Token ${token.value}`,
             };
             let url = new URL(endpoint);
             Object.entries(params).forEach(([key, value]) => {
                 url.searchParams.append(key, value);
             });
+            if (requiresAuth) {
+                headers['Authorization'] = `Token ${token.value}`;
+            }
             if (id) {
                 endpoint = `${endpoint}${id}/`;
             };
