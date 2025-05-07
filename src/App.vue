@@ -44,14 +44,4 @@
 
 <style>
 
-    h1 {
-        color: red;
-    }
-    h2 {
-        color: blueviolet;
-    }
-    h3 {
-        color: cadetblue;
-    }
-
 </style>

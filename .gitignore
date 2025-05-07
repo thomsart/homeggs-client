@@ -14,4 +14,4 @@ dist-ssr
 coverage
 *.local
 
-new.vue
+src/new.vue
