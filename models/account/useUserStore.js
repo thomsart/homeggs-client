@@ -2,11 +2,11 @@
 import { reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 
-import Api from '../apiCalls.js'
+import ApiEndpointsFetcher from '../ApiEndpointsFetcher.js'
 
 
 
-class User extends Api {
+class User extends ApiEndpointsFetcher {
     constructor({id = null,
                 firstName = '',
                 lastName = '',
@@ -52,7 +52,7 @@ export const useUserStore = defineStore('user', () => {
             });
             return state.getResponse();
         } catch(err) {
-            console.error("Error in login(): ", err);
+            console.error("Error in User.login(): ", err);
             return state.error = { error: err.message };
         }
     }
@@ -65,7 +65,7 @@ export const useUserStore = defineStore('user', () => {
             });
             return state.getResponse();
         } catch(err) {
-            console.error("Error in logout(): ", err);
+            console.error("Error in User.logout(): ", err);
             return state.error = { error: err.message };
         }
     }
@@ -79,7 +79,7 @@ export const useUserStore = defineStore('user', () => {
             state.updateDetails(Object.assign({}, state.response));
         } catch(err) {
             state.error = err;
-            console.error("Error in get(): " , err);
+            console.error("Error in User.get(): " , err);
         }
     }
 

@@ -3,7 +3,7 @@ import { useToken } from '../composables/token.js'
 const { token } = useToken();
 
 
-class Api  {
+class ApiEndpointsFetcher  {
     constructor() {
         this.apiRootUrl = 'http://127.0.0.1:8000/';
         ///////////////////////////////////////////////////////////////////////
@@ -74,5 +74,5 @@ class Api  {
     }
 }
 
-export default Api;
+export default ApiEndpointsFetcher;
 

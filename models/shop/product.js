@@ -1,7 +1,7 @@
-import Api from '../apiCalls'
+import ApiEndpointsFetcher from '../ApiEndpointsFetcher'
 
 
-class Product extends Api {
+class Product extends ApiEndpointsFetcher {
     constructor({id=0, 
                 name="", 
                 quantity=0, 
@@ -41,19 +41,19 @@ class Product extends Api {
         }
     }
 
-    async getProducts() {
+    async getAll() {
         try {
             this.response = await this.call({
                 endpoint: this.productsUrl,
             });
             return this.getResponse();
         } catch(err) {
-            console.error("Error in getProducts(): ", err);
+            console.error("Error in Product.getAll(): ", err);
             return this.error = { error: err.message };
         } 
     }
 
-    async postProduct(options={}) {
+    async post(options={}) {
         try {
             await this.call({
                 endpoint: this.productsUrl,
@@ -62,12 +62,12 @@ class Product extends Api {
             });
             return this.getResponse();
         } catch(err) {
-            console.error("Error in postProduct(): ", err);
+            console.error("Error in Product.post(): ", err);
             return { error: err.message };
         }
     }
 
-    async getProduct(options={}) {
+    async get(options={}) {
         try {
             await this.call({
                 endpoint: this.productsUrl,
@@ -75,12 +75,12 @@ class Product extends Api {
             });
             return this.getResponse();
         } catch(err) {
-            console.error("Error in getProduct(): ", err);
+            console.error("Error in Product.get(): ", err);
             return { error: err.message };
         }
     }
 
-    async updateProduct(options={}) {
+    async update(options={}) {
         try {
             await this.call({
                 endpoint: this.productsUrl,
@@ -90,12 +90,12 @@ class Product extends Api {
             });
             return this.getResponse();
         } catch(err) {
-            console.error("Error in updateProduct(): ", err);
+            console.error("Error in Product.update(): ", err);
             return { error: err.message };
         }
     }
 
-    async deleteProduct(options={}) {
+    async delete(options={}) {
         try {
             await this.call({
                 endpoint: this.productsUrl,
@@ -104,7 +104,7 @@ class Product extends Api {
             });
             return this.getResponse();
         } catch(err) {
-            console.error("Error in deleteProduct(): ", err);
+            console.error("Error in Product.delete(): ", err);
             return { error: err.message };
         }
     }
