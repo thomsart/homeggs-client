@@ -27,10 +27,10 @@ class Product extends Api {
 
     createForm() {
         return {
-            name: "",
-            quantity: 0.0,
-            kilo: 0.0,
-            litre: 0.0
+            name: this.name,
+            quantity: this.quantity,
+            kilo: this.kilo,
+            litre: this.litre
         }
     };
 

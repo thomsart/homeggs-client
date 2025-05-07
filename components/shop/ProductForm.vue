@@ -10,9 +10,8 @@
 
     const handlePostProduct = async () => {
         try {
-            // console.log(newProduct.toSendInBody());
             const product = new Product();
-            await product.postProduct({body: newProduct.toSendInBody()});
+            await product.postProduct({body: newProduct.createForm()});
             emit('close-modal');
         } catch (error) {
             console.error(`Error in handlePostProduct() with ${newProduct.name}: `, error);

@@ -18,10 +18,9 @@
             return;
         }
         await user.login({body: {'email': email.value, 'password': password.value}});
-        const reponse = user.getResponse();
-        console.log(reponse);
-        // console.log("Where...?");
-        // setToken(user.response.datas.auth_token);
+        const response = user.state.getResponse();
+        console.log(response);
+        setToken(response.datas.auth_token);
 
         if (token.value) {
             await user.get(); // set user in store with fetched user form get() method
