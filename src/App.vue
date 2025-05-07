@@ -6,7 +6,7 @@
 
     import LoginForm from './components/account/LoginForm.vue'
     import WelcomingUser from './components/account/WelcomingUser.vue'
-    import ShopList from './components/shop/ProductsList.vue'
+    import ProductsList from './components/shop/ProductsList.vue'
 
     const { token } = useToken();
     const user = useUserStore();
@@ -32,12 +32,12 @@
     <hr>
 
     <template v-if="!token">
-        <login-form></login-form>
+        <LoginForm />
     </template>
 
     <template v-else>
-        <welcoming-user></welcoming-user>
-        <shop-list></shop-list>
+        <WelcomingUser />
+        <ProductsList />
     </template>
 
 </template>

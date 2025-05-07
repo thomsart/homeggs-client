@@ -65,8 +65,8 @@
             <small>Produit cree le : {{ product.supply }}</small>
             <small>Id : {{ product.id }}</small>
         </div>
-        <custom-button buttonText="Modifier" button-color="brown" @button-click="handleUpdateProduct(product)"/>
-        <custom-button buttonText="Supprimer" button-color="red" @button-click="handleDeleteProduct(product)"/>
+        <CustomButton buttonText="Modifier" button-color="brown" @button-click="handleUpdateProduct(product)" />
+        <CustomButton buttonText="Supprimer" button-color="red" @button-click="handleDeleteProduct(product)" />
     </form>
 
 

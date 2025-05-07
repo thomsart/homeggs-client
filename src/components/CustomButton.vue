@@ -23,7 +23,7 @@
 
 <template>
 
-    <button type="submit" :style="{'--button-bg': buttonColor}" @click="handleClick" class="custom-button">{{ buttonText }}</button>
+    <button class="custom-button" type="submit" :style="{'--button-bg': buttonColor}" @click="handleClick"><p>{{ buttonText }}</p></button>
 
 </template>
 
@@ -34,8 +34,7 @@
         border-color: black;
         border-width: 1px;
         color: white;
-        padding: auto;
-        margin: 1px;
+        margin: 5px;
         border-radius: 5px;
         height: 25px;
         cursor: pointer;
@@ -43,6 +42,11 @@
     }
     .custom-button:hover {
         filter: brightness(70%);
+    }
+    .custom-button p {
+        margin: 0;  /* Enlève les marges du <p> */
+        padding: 0; /* Enlève les paddings du <p> */
+        line-height: 1;  /* Contrôle l'espacement vertical des lignes */
     }
 
 </style>

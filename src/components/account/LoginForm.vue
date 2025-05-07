@@ -40,7 +40,7 @@
     <form @submit.prevent="handleLogin">
         <input v-model="email" type="email" placeholder="your email">
         <input v-model="password" type="password" placeholder="your password">
-        <Custom-button buttonText="connexion" buttonCollor="blue"></Custom-button>
+        <CustomButton buttonText="connexion" buttonCollor="blue" />
     </form>
     <hr>
 

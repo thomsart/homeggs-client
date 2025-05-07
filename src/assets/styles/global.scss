@@ -1,9 +1,40 @@
+@use './variables.scss';
+
+@font-face {
+    font-family: 'corinthia';
+    src: url('/fonts/corinthia/corinthia-bold.ttf') format('truetype'),
+        url('/fonts/corinthia/corinthia-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'viaoda';
+    src: url('/fonts/viaoda/viaoda-libre-regular.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'yusei-magic';
+    src: url('/fonts/yusei-magic/yusei-magic-regular.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
 h1 {
-    color: red;
+    font-family: 'viaoda';
+    color: purple;
 }
 h2 {
+    font-family: 'viaoda';
     color: blueviolet;
 }
 h3 {
+    font-family: 'viaoda';
     color: cadetblue;
+}
+p {
+    color: rgb(247, 215, 154);
+    font-family: 'yusei-magic';
 }
