@@ -25,7 +25,7 @@
     async function loadProducts() {
         try {
             const products = new Product();
-            const fetchedProducts = await products.getProducts();
+            const fetchedProducts = await products.getAll();
             // console.log("In loadProducts(), fetchedProducts: " + JSON.stringify(fetchedProducts.datas));
             displayedProducts.splice(0, displayedProducts.length, ...fetchedProducts.datas.map(product => new Product(product)));
         } catch (error) {
@@ -36,7 +36,7 @@
     async function handleAddDelToList(selectedProduct) {
         try {
             const product = new Product();
-            await product.updateProduct({id: selectedProduct.id, body: {missing: !selectedProduct.missing}});
+            await product.update({id: selectedProduct.id, body: {missing: !selectedProduct.missing}});
             await loadProducts(); // Refresh products after updating
         } catch (error) {
             console.error(`Error in handleAddDelToList(): ${selectedProduct.name} :`, error);

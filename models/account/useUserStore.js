@@ -21,6 +21,13 @@ class User extends ApiEndpointsFetcher {
         this.phone = phone;
     }
 
+    reset() {
+        this.id = null;
+        this.lastName = '';
+        this.email = '';
+        this.phone = '';
+    }
+
     updateDetails({id, first_name, last_name, email, phone}) {
         if (id) this.id = id;
         if (first_name) this.firstName = first_name;
@@ -63,7 +70,7 @@ export const useUserStore = defineStore('user', () => {
                 endpoint: state.logoutUrl,
                 method: 'POST',
             });
-            return state.getResponse();
+            return state.reset();
         } catch(err) {
             console.error("Error in User.logout(): ", err);
             return state.error = { error: err.message };
@@ -115,14 +122,6 @@ export const useUserStore = defineStore('user', () => {
 
 
 
-
-    
-
-
-    async function clear() {
-
-    }
-
     // Getters
     const id = computed(() => state.id);
     const firstName = computed(() => state.firstName);
@@ -137,7 +136,6 @@ export const useUserStore = defineStore('user', () => {
         get,
         update,
         save,
-        clear,
         id,
         firstName,
         lastName,

@@ -11,7 +11,7 @@
     const handlePostProduct = async () => {
         try {
             const product = new Product();
-            await product.postProduct({body: newProduct.createForm()});
+            await product.post({body: newProduct.createForm()});
             emit('close-modal');
         } catch (error) {
             console.error(`Error in handlePostProduct() with ${newProduct.name}: `, error);

@@ -22,7 +22,7 @@
         }
         try {
             const product = new Product();
-            await product.updateProduct({id: propsProduct.id, body: productAttributesToUpdate});
+            await product.update({id: propsProduct.id, body: productAttributesToUpdate});
             emit('close-modal');
         } catch(error) {
             console.log(`Error in handleUpdateProduct with ${selectedProduct.name}: `, error)
@@ -35,7 +35,7 @@
         }
         try {
             const product = new Product();
-            await product.deleteProduct({id: propsProduct.id});
+            await product.delete({id: propsProduct.id});
             emit('close-modal');
         } catch(error) {
             console.log(`Error in handleDeleteProduct() with ${propsProduct.name}: `, error)

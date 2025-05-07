@@ -19,7 +19,7 @@
         }
         await user.login({body: {'email': email.value, 'password': password.value}});
         const response = user.state.getResponse();
-        console.log(response);
+        // console.log(response);
         setToken(response.datas.auth_token);
 
         if (token.value) {
@@ -36,7 +36,7 @@
 
 <template>
 
-    <h2>Connecte toi</h2>
+    <h2>Connecte toi {{ user.firstName }}</h2>
     <form @submit.prevent="handleLogin">
         <input v-model="email" type="email" placeholder="your email">
         <input v-model="password" type="password" placeholder="your password">
