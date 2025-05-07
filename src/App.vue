@@ -1,12 +1,12 @@
 <script setup>
 
     import { onMounted, watchEffect } from 'vue'
-    import { useToken } from '../composables/token.js'
-    import { useUserStore } from '../models/account/useUserStore.js'
+    import { useToken } from './composables/token.js'
+    import { useUserStore } from './models/account/useUserStore.js'
 
-    import LoginForm from '../components/account/LoginForm.vue'
-    import WelcomingUser from '../components/account/WelcomingUser.vue'
-    import ShopList from '../components/shop/ProductsList.vue'
+    import LoginForm from './components/account/LoginForm.vue'
+    import WelcomingUser from './components/account/WelcomingUser.vue'
+    import ShopList from './components/shop/ProductsList.vue'
 
     const { token } = useToken();
     const user = useUserStore();
