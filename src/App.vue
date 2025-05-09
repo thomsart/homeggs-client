@@ -1,5 +1,6 @@
 <script setup>
 
+
     import { onMounted, watchEffect } from 'vue'
     import { useToken } from './composables/token.js'
     import { useUserStore } from './models/account/useUserStore.js'
@@ -42,6 +43,6 @@
 
 </template>
 
-<style>
+<style lang="scss">
 
 </style>

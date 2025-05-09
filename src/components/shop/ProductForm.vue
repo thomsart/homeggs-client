@@ -34,7 +34,7 @@
 
 </template>
 
-<style>
+<style lang="scss">
 
     #product-inputs {
         display: flex;

@@ -72,7 +72,7 @@
 
 </template>
 
-<style>
+<style lang="scss">
 
     form {
         border: solid black 1px;

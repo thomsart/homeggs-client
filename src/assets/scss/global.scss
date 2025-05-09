@@ -1,4 +1,5 @@
-@use './variables.scss';
+@use './_colors' as _color;
+
 
 @font-face {
     font-family: 'corinthia';
@@ -24,17 +25,17 @@
 
 h1 {
     font-family: 'viaoda';
-    color: purple;
+    color: _color.$strong-purple;
 }
 h2 {
     font-family: 'viaoda';
-    color: blueviolet;
+    color: _color.$soft-purple;
 }
 h3 {
     font-family: 'viaoda';
     color: cadetblue;
 }
 p {
-    color: rgb(247, 215, 154);
+    color: _color.$soft-black;
     font-family: 'yusei-magic';
 }

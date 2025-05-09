@@ -92,7 +92,7 @@
     <h3 v-else>Fais ta liste de course</h3>
 
     <div id="shopList">
-        <CustomButton v-for="product in missedProducts" class="product-button" :buttonText="product.name" buttonColor="blueviolet"
+        <CustomButton v-for="product in missedProducts" class="product-button" :buttonText="product.name" buttonColor="yellow"
             @mousedown="handleMouseDown(product)" 
             @mouseup="handleMouseUp(product)" 
             @mouseleave="handleMouseLeave()"/>
@@ -125,7 +125,7 @@
 
 </template>
 
-<style>
+<style lang="scss">
 
     #shopList {
         background-color: beige;
