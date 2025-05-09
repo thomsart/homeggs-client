@@ -1,0 +1,32 @@
+@use 'abstract' as *;
+
+
+
+h1 {
+    @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
+    font-family: 'viaoda';
+    color: $strong-purple;
+}
+h2 {
+    @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
+    font-family: 'viaoda';
+    color: $soft-purple;
+}
+h3 {
+    @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
+    font-family: 'viaoda';
+    color: $strong-blue;
+}
+p {
+    @include font-face('yusei-magic', '/fonts/yusei-magic/yusei-magic-regular.ttf');
+    color: $strong-black;
+    font-family: 'yusei-magic';
+}
+
+
+#shopList {
+    background-color: $soft-black;
+}
+#button-close-modal {
+    color: $soft-blue;
+}

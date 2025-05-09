@@ -23,15 +23,14 @@
 
 <template>
 
-    <button class="custom-button" type="submit" :style="{'--button-bg': buttonColor}" @click="handleClick"><p>{{ buttonText }}</p></button>
+    <button class="custom-button" type="submit" @click="handleClick"><p>{{ buttonText }}</p></button>
 
 </template>
 
-<style scoped>
+<style lang="scss">
 
     .custom-button {
-        background-color: var(--button-bg); /* we use the css variable */
-        border-color: black;
+        // border-color: $strong-purple;
         border-width: 1px;
         color: white;
         margin: 5px;

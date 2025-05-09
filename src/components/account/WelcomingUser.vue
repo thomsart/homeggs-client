@@ -19,7 +19,7 @@
 
     <h2>Ton Compte</h2>
     <h3>Bienvenue {{ user.firstName }} {{ user.lastName }} !</h3>
-    <CustomButton buttonText="deconnexion" buttonColor="red" @button-click="handleLogout" />
+    <CustomButton buttonText="deconnexion" @button-click="handleLogout" />
     <p>your email: {{ user.email }}</p>
     <p>your phone: {{ user.phone }}</p>
     <hr>

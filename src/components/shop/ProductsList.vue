@@ -117,7 +117,7 @@
 
     <div v-if="isModalProductFormOpen" class="modal-overlay">
       <div id="modal-create-product-form">
-        <CustomButton id="button-close-modal" buttonText="<" button-color="blue" @button-click="isModalProductFormOpen = false" />
+        <CustomButton id="button-close-modal" buttonText="<" @button-click="isModalProductFormOpen = false" />
         <ProductForm :is-open="isModalProductFormOpen" @close-modal="isModalProductFormOpen = false & loadProducts()" />
       </div>
     </div>
@@ -128,7 +128,6 @@
 <style lang="scss">
 
     #shopList {
-        background-color: beige;
         width: 90%;
         display: flex;
         flex: 1;
