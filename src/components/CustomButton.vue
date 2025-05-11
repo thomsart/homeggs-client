@@ -30,7 +30,6 @@
 <style lang="scss">
 
     .custom-button {
-        // border-color: $strong-purple;
         border-width: 1px;
         color: white;
         margin: 5px;

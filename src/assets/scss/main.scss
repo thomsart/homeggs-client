@@ -1,7 +1,6 @@
 @use 'abstract' as *;
 
 
-
 h1 {
     @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
     font-family: 'viaoda';

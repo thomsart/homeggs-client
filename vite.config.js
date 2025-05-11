@@ -15,11 +15,16 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url))
         },
     },
+    assetsInclude: ['/assets/scss/*.sass'],
     css: {
         preprocessorOptions: {
             scss: {
-                additionalData: `@use "@/assets/scss/main.scss" as *;`,
+                additionalData: `
+                    @use "@/assets/scss/main.scss" as *;
+                    @use "@/assets/scss/abstract" as *;
+
+                `,
             },
         },
-    },
+    },        
 })
