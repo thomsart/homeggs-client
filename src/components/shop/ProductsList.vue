@@ -88,43 +88,35 @@
 
     <h2>Shopping List</h2>
 
-    <h3 v-if="displayedProducts.length !== 0">A acheter: </h3>
+    <h3 v-if="missedProducts.length !== 0">A acheter: </h3>
     <h3 v-else>Fais ta liste de course</h3>
 
     <div id="product-list">
-        <CustomButton v-for="product in missedProducts" class="product-button" :buttonText="product.name" buttonColor="yellow"
+        <CustomButton v-for="product in missedProducts" class="product-button" :buttonText="product.name" 
             @mousedown="handleMouseDown(product)" 
             @mouseup="handleMouseUp(product)" 
-            @mouseleave="handleMouseLeave()"/>
+            @mouseleave="handleMouseLeave()" />
         <div  v-if="isModalSelectedProductOpen" class="modal-overlay">
-            <CustomButton class="button-close-modal" buttonText="<" button-color="blue" 
-                @button-click="isModalSelectedProductOpen = false" />
+            <CustomButton class="button-close-modal" buttonText="<" @button-click="isModalSelectedProductOpen = false" />
             <ProductCard :product="clickedProduct" :is-open="isModalSelectedProductOpen" 
                 @close-modal="isModalSelectedProductOpen = false & loadProducts()" />
         </div>
         <div v-if="availableProducts.length > 0">
-            <CustomButton buttonText="+" button-color="blue" 
-                @button-click="isModalAvailableProductsOpen = true" />
+            <CustomButton buttonText="+" @button-click="isModalAvailableProductsOpen = true" />
+            <CustomButton buttonText="Create product" @button-click="isModalProductFormOpen = true" />
         </div>
         <div v-if="isModalAvailableProductsOpen" class="modal-overlay">
-            <CustomButton class="button-close-modal" buttonText="<" button-color="blue" 
-                @button-click="isModalAvailableProductsOpen = false"/>
+            <CustomButton class="button-close-modal" buttonText="<" @button-click="isModalAvailableProductsOpen = false"/>
             <div id="modal-available-products-list">
-                <CustomButton v-for="product in availableProducts" :buttonText="product.name" buttonColor="blueviolet" 
-                    @button-click="handleAddDelToList(product)"/>
+                <CustomButton v-for="product in availableProducts" :buttonText="product.name" @button-click="handleAddDelToList(product)"/>
             </div>
         </div>
     </div>
 
-    <CustomButton buttonText="Create product" button-color="blue" 
-        @button-click="isModalProductFormOpen = true" />
-
     <div v-if="isModalProductFormOpen" class="modal-overlay">
       <div id="modal-create-product-form">
-        <CustomButton id="button-close-modal" buttonText="<" 
-            @button-click="isModalProductFormOpen = false" />
-        <ProductForm :is-open="isModalProductFormOpen" 
-            @close-modal="isModalProductFormOpen = false & loadProducts()" />
+        <CustomButton id="button-close-modal" buttonText="<" @button-click="isModalProductFormOpen = false" />
+        <ProductForm :is-open="isModalProductFormOpen" @close-modal="isModalProductFormOpen = false & loadProducts()" />
       </div>
     </div>
 
@@ -133,8 +125,7 @@
 <style lang="scss" scoped>
 
     #product-list {
-        border: solid $soft-red 2px;
-        border-radius: 30px;
+        @include dev-style($strong-red);
         display: flex;
         flex: 1;
         flex-direction: row;

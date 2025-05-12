@@ -27,7 +27,7 @@
         <div id="product-inputs" v-for="(value, key) in newProduct.createForm()" :key="key">
             <input :id="key" :name="key" v-model="newProduct[key]"  :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
         </div>
-        <CustomButton id="button-validation" buttonText="ajoute" buttonCollor="blue" />
+        <CustomButton id="button-validation" buttonText="ajoute"/>
 
     </form>
 

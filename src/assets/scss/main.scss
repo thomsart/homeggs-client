@@ -5,16 +5,19 @@ h1 {
     @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
     font-family: 'viaoda';
     color: $strong-purple;
+    text-align: center;
 }
 h2 {
     @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
     font-family: 'viaoda';
     color: $soft-purple;
+    text-align: center;
 }
 h3 {
     @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
     font-family: 'viaoda';
-    color: $strong-blue;
+    color: $soft-blue;
+    text-align: center;
 }
 p {
     @include font-face('yusei-magic', '/fonts/yusei-magic/yusei-magic-regular.ttf');
@@ -24,32 +27,22 @@ p {
 
 // The entire application wrapped in it
 #app {
-    border: solid $soft-black 2px;
-    border-radius: 10px;
-    // display: flex;
-    // flex-wrap: wrap;
-
+    @include dev-style($strong-black);
     #header {
-        border: solid $soft-red 2px;
-        border-radius: 30px;
+        border: solid $strong-red 2px;
+        border-radius: 20px;
     }
 
     #login-form {
-        border: solid $soft-red 2px;
-        border-radius: 30px;
-
+        @include dev-style($strong-red);
     }
 
     #user {
-        border: solid $soft-red 2px;
-        border-radius: 30px;
-
+        @include dev-style($strong-red);
     }
 
     #shop {
-        border: solid $soft-red 2px;
-        border-radius: 30px;
-
+        @include dev-style($strong-red);
     }
 }
 
