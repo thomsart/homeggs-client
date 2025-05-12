@@ -22,10 +22,35 @@ p {
     font-family: 'yusei-magic';
 }
 
+// The entire application wrapped in it
+#app {
+    border: solid $soft-black 2px;
+    border-radius: 10px;
+    // display: flex;
+    // flex-wrap: wrap;
 
-#shopList {
-    background-color: $soft-black;
+    #header {
+        border: solid $soft-red 2px;
+        border-radius: 30px;
+    }
+
+    #login-form {
+        border: solid $soft-red 2px;
+        border-radius: 30px;
+
+    }
+
+    #user {
+        border: solid $soft-red 2px;
+        border-radius: 30px;
+
+    }
+
+    #shop {
+        border: solid $soft-red 2px;
+        border-radius: 30px;
+
+    }
 }
-#button-close-modal {
-    color: $soft-blue;
-}
+
+

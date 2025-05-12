@@ -42,7 +42,6 @@
         <input v-model="password" type="password" placeholder="your password">
         <CustomButton buttonText="connexion" />
     </form>
-    <hr>
 
 </template>
 

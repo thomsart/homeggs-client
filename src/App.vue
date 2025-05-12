@@ -6,7 +6,7 @@
     import { useUserStore } from './models/account/useUserStore.js'
 
     import LoginForm from './components/account/LoginForm.vue'
-    import WelcomingUser from './components/account/WelcomingUser.vue'
+    import User from './components/account/User.vue'
     import ProductsList from './components/shop/ProductsList.vue'
 
     const { token } = useToken();
@@ -28,17 +28,19 @@
 
 <template>
 
-    <h1>Homeggs</h1>
-    <h2>Mets tout tes œufs dans le même foyer!</h2>
-    <hr>
+    <div id="header">
+        <h1>Homeggs... </h1>
+        <h2>" Mets tout tes œufs dans le même foyer ! "</h2>
+    </div>
 
     <template v-if="!token">
-        <LoginForm />
+        <div id="login-form"><LoginForm /></div>
+        
     </template>
 
     <template v-else>
-        <WelcomingUser />
-        <ProductsList />
+        <div id="user"><User /></div>
+        <div id="shop"><ProductsList /></div>
     </template>
 
 </template>

@@ -17,12 +17,12 @@
 
 <template>
 
-    <h2>Ton Compte</h2>
-    <h3>Bienvenue {{ user.firstName }} {{ user.lastName }} !</h3>
+    <h2>Bienvenue {{ user.firstName }} !</h2>
     <CustomButton buttonText="deconnexion" @button-click="handleLogout" />
-    <p>your email: {{ user.email }}</p>
-    <p>your phone: {{ user.phone }}</p>
-    <hr>
+    <p>Firstname: {{ user.firstName }}</p>
+    <p>Lastname: {{ user.lastName }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone: {{ user.phone }}</p>
 
 </template>
 
