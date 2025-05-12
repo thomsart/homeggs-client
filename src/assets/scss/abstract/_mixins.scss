@@ -6,7 +6,8 @@
         font-style: normal;
     }
 }
-@mixin dev-style($color) {
-    border: solid $color 2px;
+@mixin dev-style($background-color, $border-color) {
+    background-color: $background-color;
+    border: solid $border-color 2px;
     border-radius: 20px;
   }

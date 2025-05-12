@@ -4,45 +4,45 @@
 h1 {
     @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
     font-family: 'viaoda';
-    color: $strong-purple;
+    color: $color-PURPLE;
     text-align: center;
 }
 h2 {
     @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
     font-family: 'viaoda';
-    color: $soft-purple;
+    color: $color-purple;
     text-align: center;
 }
 h3 {
     @include font-face('viaoda', '/fonts/viaoda/viaoda-libre-regular.ttf');
     font-family: 'viaoda';
-    color: $soft-blue;
+    color: $color-blue;
     text-align: center;
 }
 p {
     @include font-face('yusei-magic', '/fonts/yusei-magic/yusei-magic-regular.ttf');
-    color: $strong-black;
+    color: $color-black;
     font-family: 'yusei-magic';
 }
 
 // The entire application wrapped in it
 #app {
-    @include dev-style($strong-black);
+    @include dev-style($color-egg, $color-black);
     #header {
-        border: solid $strong-red 2px;
+        border: solid $color-red 2px;
         border-radius: 20px;
     }
 
     #login-form {
-        @include dev-style($strong-red);
+        @include dev-style($color-egg, $color-red);
     }
 
     #user {
-        @include dev-style($strong-red);
+        @include dev-style($color-egg, $color-red);
     }
 
     #shop {
-        @include dev-style($strong-red);
+        @include dev-style($color-egg, $color-red);
     }
 }
 

@@ -125,7 +125,7 @@
 <style lang="scss" scoped>
 
     #product-list {
-        @include dev-style($strong-red);
+        @include dev-style($color-egg, $color-red);
         display: flex;
         flex: 1;
         flex-direction: row;
