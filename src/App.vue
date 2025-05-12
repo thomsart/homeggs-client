@@ -35,7 +35,6 @@
 
     <template v-if="!token">
         <div id="login-form"><LoginForm /></div>
-        
     </template>
 
     <template v-else>
@@ -47,5 +46,8 @@
 
 <style lang="scss">
 
+    #user {
+        text-align: center;
+    }
 
 </style>

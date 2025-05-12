@@ -40,11 +40,15 @@
     <form @submit.prevent="handleLogin()">
         <input v-model="email" type="email" placeholder="your email">
         <input v-model="password" type="password" placeholder="your password">
-        <CustomButton buttonText="connexion" />
+        <CustomButton id="custom-button-login" buttonText="connexion" />
     </form>
 
 </template>
 
 <style lang="scss">
+
+    #custom-button-login {
+        background-color: $color-BLUE;
+    }
 
 </style>

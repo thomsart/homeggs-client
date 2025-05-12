@@ -92,7 +92,7 @@
     <h3 v-else>Fais ta liste de course</h3>
 
     <div id="product-list">
-        <CustomButton v-for="product in missedProducts" class="product-button" :buttonText="product.name" 
+        <CustomButton v-for="product in missedProducts" class="custom-button-product" :buttonText="product.name" 
             @mousedown="handleMouseDown(product)" 
             @mouseup="handleMouseUp(product)" 
             @mouseleave="handleMouseLeave()" />
@@ -102,20 +102,21 @@
                 @close-modal="isModalSelectedProductOpen = false & loadProducts()" />
         </div>
         <div v-if="availableProducts.length > 0">
-            <CustomButton buttonText="+" @button-click="isModalAvailableProductsOpen = true" />
-            <CustomButton buttonText="Create product" @button-click="isModalProductFormOpen = true" />
+            <CustomButton class="custom-button-product-create-add" buttonText="+" @button-click="isModalAvailableProductsOpen = true" />
         </div>
+        <CustomButton class="custom-button-product-create-add" buttonText="Create product" @button-click="isModalProductFormOpen = true" />
+
         <div v-if="isModalAvailableProductsOpen" class="modal-overlay">
             <CustomButton class="button-close-modal" buttonText="<" @button-click="isModalAvailableProductsOpen = false"/>
             <div id="modal-available-products-list">
-                <CustomButton v-for="product in availableProducts" :buttonText="product.name" @button-click="handleAddDelToList(product)"/>
+                <CustomButton v-for="product in availableProducts" class="custom-button-product" :buttonText="product.name" @button-click="handleAddDelToList(product)"/>
             </div>
         </div>
     </div>
 
     <div v-if="isModalProductFormOpen" class="modal-overlay">
       <div id="modal-create-product-form">
-        <CustomButton id="button-close-modal" buttonText="<" @button-click="isModalProductFormOpen = false" />
+        <CustomButton class="button-close-modal" buttonText="<" @button-click="isModalProductFormOpen = false" />
         <ProductForm :is-open="isModalProductFormOpen" @close-modal="isModalProductFormOpen = false & loadProducts()" />
       </div>
     </div>
@@ -132,6 +133,12 @@
         flex-wrap: wrap;
         justify-content: start;
         min-width: 0;
+    }
+    .custom-button-product {
+        background-color: $color-purple;
+    }
+    .custom-button-product-create-add {
+        background-color: $color-BLUE;
     }
     .modal-overlay {
         position: fixed;
@@ -166,7 +173,8 @@
         border-radius: 0.5em;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    #button-close-modal {
+    .button-close-modal {
+        background-color: $color-BLUE;
         margin-top: 5px;
         margin-right: 5px;
     }

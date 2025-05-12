@@ -18,14 +18,18 @@
 <template>
 
     <h2>Bienvenue {{ user.firstName }} !</h2>
-    <CustomButton buttonText="deconnexion" @button-click="handleLogout" />
     <p>Firstname: {{ user.firstName }}</p>
     <p>Lastname: {{ user.lastName }}</p>
     <p>Email: {{ user.email }}</p>
     <p>Phone: {{ user.phone }}</p>
+    <CustomButton id="custom-button-logout" buttonText="deconnexion" @button-click="handleLogout()" />
 
 </template>
 
 <style lang="scss">
+
+    #custom-button-logout {
+        background-color: $color-RED;
+    }
 
 </style>

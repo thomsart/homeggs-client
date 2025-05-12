@@ -27,7 +27,7 @@
 
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
     .custom-button {
         border-width: 1px;
@@ -45,6 +45,9 @@
         margin: 0;  /* Enlève les marges du <p> */
         padding: 0; /* Enlève les paddings du <p> */
         line-height: 1;  /* Contrôle l'espacement vertical des lignes */
+    }
+    p {
+        color: $color-white;
     }
 
 </style>
