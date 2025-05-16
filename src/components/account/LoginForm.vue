@@ -38,8 +38,8 @@
 
     <h2>Connecte toi {{ user.firstName }}</h2>
     <form @submit.prevent="handleLogin()">
-        <input v-model="email" type="email" placeholder="your email">
-        <input v-model="password" type="password" placeholder="your password">
+        <input v-model="email" type="email" placeholder="&emsp;email">
+        <input v-model="password" type="password" placeholder="&emsp;password">
         <CustomButton id="custom-button-login" buttonText="connexion" />
     </form>
 
@@ -47,8 +47,23 @@
 
 <style lang="scss">
 
-    #custom-button-login {
-        background-color: $color-BLUE;
+    form {
+        border-radius: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        input, #custom-button-login {
+        width: 70%;
+        height: 2em;
+        margin-top: 0.5em;
+        }
+        #custom-button-login {
+            background-color: $color-BLUE;
+            margin-bottom: 3em;
+        }
     }
+    
 
 </style>

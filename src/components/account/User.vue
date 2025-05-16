@@ -17,12 +17,11 @@
 
 <template>
 
-    <h2>Bienvenue {{ user.firstName }} !</h2>
-    <p>Firstname: {{ user.firstName }}</p>
-    <p>Lastname: {{ user.lastName }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Phone: {{ user.phone }}</p>
-    <CustomButton id="custom-button-logout" buttonText="deconnexion" @button-click="handleLogout()" />
+    <h2>Bienvenue {{ user.firstName }} ! 
+        <CustomButton id="custom-button-logout" buttonText="&nbsp;¡&nbsp;" @button-click="handleLogout()" /></h2>
+    <p>{{ user.email }}</p>
+    <p>{{ user.phone }}</p>
+    
 
 </template>
 
@@ -30,6 +29,8 @@
 
     #custom-button-logout {
         background-color: $color-RED;
+        border-color: solid white 1px;
+        border-radius: 14px;
     }
 
 </style>

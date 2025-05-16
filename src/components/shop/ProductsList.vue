@@ -86,7 +86,7 @@
 
 <template>
 
-    <h2>Shopping List</h2>
+    <h2>Liste de course</h2>
 
     <h3 v-if="missedProducts.length !== 0">A acheter: </h3>
     <h3 v-else>Fais ta liste de course</h3>
