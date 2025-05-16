@@ -47,42 +47,38 @@
 
 <template>
 
-
-    <form>
-        <div class="card-header">
-            <input v-model="productAttributesToUpdate['name']" type="text" :placeholder="product.name" required minlength="2" maxlength="50" size="10">
-        </div>
-        <div class="card-content">
-            <input v-model="productAttributesToUpdate['quantity']"  type="text" :placeholder="product.quantity">
-        </div>
-        <div class="card-content">
-            <input v-model="productAttributesToUpdate['kilo']"  type="text" :placeholder="product.kilo">
-        </div>
-        <div class="card-content">
-            <input v-model="productAttributesToUpdate['litre']"  type="text" :placeholder="product.litre">
-        </div>
-        <div class="card-footer">
-            <small>Produit cree le : {{ product.supply }}</small>
-            <small>Id : {{ product.id }}</small>
-        </div>
+    <form id="product-card">
+        <input v-model="productAttributesToUpdate['name']" type="text" :placeholder="product.name" required minlength="2" maxlength="50" size="10">
+        <input v-model="productAttributesToUpdate['quantity']"  type="text" :placeholder="product.quantity">
+        <input v-model="productAttributesToUpdate['kilo']"  type="text" :placeholder="product.kilo">
+        <input v-model="productAttributesToUpdate['litre']"  type="text" :placeholder="product.litre">
         <CustomButton id="custom-button-update-product" buttonText="Modifier" @button-click="handleUpdateProduct(product)" />
         <CustomButton id="custom-button-delete-product" buttonText="Supprimer" @button-click="handleDeleteProduct(product)" />
     </form>
 
-
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-    form {
-        border: solid black 1px;
-        border-radius: 5px;
-    }
-    #custom-button-update-product {
-        background-color: $color-BROWN;
-    }
-    #custom-button-delete-product {
-        background-color: $color-RED;
+    #product-card {
+        border-radius: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        input, #custom-button-update-product, #custom-button-delete-product {
+            width: 90%;
+            height: 2em;
+            margin-top: 0.5em;
+        }
+
+        #custom-button-update-product {
+            background-color: $color-BROWN;
+        }
+        #custom-button-delete-product {
+            background-color: $color-RED;
+        }
     }
 
 </style>

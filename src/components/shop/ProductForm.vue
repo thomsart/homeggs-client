@@ -23,27 +23,41 @@
 <template>
 
     <form id="product-form" @submit.prevent="handlePostProduct()">
-
-        <div id="product-inputs" v-for="(value, key) in newProduct.createForm()" :key="key">
-            <input :id="key" :name="key" v-model="newProduct[key]"  :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
-        </div>
+        <input v-for="(value, key) in newProduct.createForm()" :key="key" :id="key" :name="key" v-model="newProduct[key]" 
+            :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
         <CustomButton id="custom-button-product-validation" buttonText="Ajoute"/>
-
     </form>
-
 
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-    #product-inputs {
+    #product-form {
+        border-radius: 10px;
+        width: 100%;
         display: flex;
         flex-direction: column;
-    }
+        align-items: center;
+        justify-content: center;
 
-    #custom-button-product-validation {
-        background-color: $color-BLUE;
-        width: 100%;
+        .space {
+            width: 100%;
+            height: 0.5em;
+        }
+
+        input, #custom-button-product-validation {
+            width: 90%;
+            height: 2em;
+            margin-top: 0.5em;
+        }
+
+        #custom-button-product-validation {
+            margin-bottom: 0.5em;
+            background-color: $color-BLUE;
+        }
     }
+    
+
+    
 
 </style>

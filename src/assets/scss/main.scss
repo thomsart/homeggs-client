@@ -29,20 +29,18 @@ p {
 #app {
     @include dev-style($color-egg, $color-black);
     #header {
-        border: solid $color-red 2px;
-        border-radius: 20px;
-    }
+        // @include dev-style($color-egg, $color-red);
 
+    }
     #login-form {
-        @include dev-style($color-egg, $color-red);
+        // @include dev-style($color-egg, $color-red);
     }
-
     #user {
-        @include dev-style($color-egg, $color-red);
+        // @include dev-style($color-egg, $color-red);
+        text-align: center;
     }
-
     #shop {
-        @include dev-style($color-egg, $color-red);
+        // @include dev-style($color-egg, $color-red);
     }
 }
 

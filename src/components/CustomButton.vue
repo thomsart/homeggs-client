@@ -34,9 +34,9 @@
         color: white;
         margin: 5px;
         border-radius: 5px;
-        height: 25px;
+        height: 30px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.5s;
     }
     .custom-button:hover {
         filter: brightness(70%);

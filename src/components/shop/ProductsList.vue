@@ -98,27 +98,29 @@
             @mouseleave="handleMouseLeave()" />
         <div  v-if="isModalSelectedProductOpen" class="modal-overlay">
             <CustomButton class="button-close-modal" buttonText="<" @button-click="isModalSelectedProductOpen = false" />
-            <ProductCard :product="clickedProduct" :is-open="isModalSelectedProductOpen" 
-                @close-modal="isModalSelectedProductOpen = false & loadProducts()" />
+            <div class="modal">
+                <ProductCard :product="clickedProduct" :is-open="isModalSelectedProductOpen" 
+                    @close-modal="isModalSelectedProductOpen = false & loadProducts()" />
+            </div>
         </div>
         <div v-if="availableProducts.length > 0">
-            <CustomButton class="custom-button-product-create-add" buttonText="+" @button-click="isModalAvailableProductsOpen = true" />
+            <CustomButton class="custom-button-product-create-add" buttonText="&nbsp;+&nbsp;" @button-click="isModalAvailableProductsOpen = true" />
         </div>
         <CustomButton class="custom-button-product-create-add" buttonText="Create product" @button-click="isModalProductFormOpen = true" />
 
         <div v-if="isModalAvailableProductsOpen" class="modal-overlay">
             <CustomButton class="button-close-modal" buttonText="<" @button-click="isModalAvailableProductsOpen = false"/>
-            <div id="modal-available-products-list">
+            <div class="modal">
                 <CustomButton v-for="product in availableProducts" class="custom-button-product" :buttonText="product.name" @button-click="handleAddDelToList(product)"/>
             </div>
         </div>
     </div>
 
     <div v-if="isModalProductFormOpen" class="modal-overlay">
-      <div id="modal-create-product-form">
         <CustomButton class="button-close-modal" buttonText="<" @button-click="isModalProductFormOpen = false" />
-        <ProductForm :is-open="isModalProductFormOpen" @close-modal="isModalProductFormOpen = false & loadProducts()" />
-      </div>
+        <div class="modal">
+            <ProductForm :is-open="isModalProductFormOpen" @close-modal="isModalProductFormOpen = false & loadProducts()" />
+        </div>
     </div>
 
 </template>
@@ -126,7 +128,6 @@
 <style lang="scss" scoped>
 
     #product-list {
-        @include dev-style($color-egg, $color-red);
         display: flex;
         flex: 1;
         flex-direction: row;
@@ -151,32 +152,17 @@
         justify-content: center;
         align-items: center;
     }
-    #modal-available-products-list {
+    .modal {
         position: relative;
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        width: 30%;
-        height: 30%;
-        border: solid 3px;
-        border-color: rgb(0, 0, 0);
-        border-radius: 1em;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    #modal-create-product-form {
-        position: relative;
-        background-color: white;
-        width: 30%;
-        height: 30%;
-        border: solid 3px;
-        border-color: rgb(0, 0, 0);
-        border-radius: 0.5em;
+        background-color: $color-egg;
+        width: 70%;
+        border-radius: 5px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .button-close-modal {
         background-color: $color-BLUE;
-        margin-top: 5px;
-        margin-right: 5px;
+        width: 2.5em;
+        height: 2em;
     }
 
 </style>
