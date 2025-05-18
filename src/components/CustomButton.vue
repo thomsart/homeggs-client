@@ -30,7 +30,7 @@
 <style lang="scss" scoped>
 
     .custom-button {
-        border-width: 1px;
+        border: solid white 1px;
         color: white;
         margin: 5px;
         border-radius: 5px;

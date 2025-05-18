@@ -25,7 +25,7 @@
     <form id="product-form" @submit.prevent="handlePostProduct()">
         <input v-for="(value, key) in newProduct.createForm()" :key="key" :id="key" :name="key" v-model="newProduct[key]" 
             :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
-        <CustomButton id="custom-button-product-validation" buttonText="Ajoute"/>
+        <CustomButton id="custom-button-product-validation" buttonText="ajoute"/>
     </form>
 
 </template>

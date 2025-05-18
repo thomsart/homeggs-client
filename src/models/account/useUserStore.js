@@ -90,37 +90,19 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
-
-
-
-
-
-
-
-
-
-    function update(details) {
-        state.user.updateDetails(details); // Appelle la méthode de la classe
-    }
-    async function save() {
+    async function update(options={}) {
         try {
-            const response = await fetch(`http://api.example.com/users/${state.user.id}`, {
+            state.response = await state.call({
+                endpoint: state.meUrl,
                 method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(state.user.toJSON()),
-            });
-            const data = await response.json();
-            state.user = new User(data); // Met à jour après sauvegarde
+                body: options.body,
+            })
+            get();
         } catch(err) {
             state.error = err;
-            console.error('Error saving user:', err);
+            console.error("Error in User.update(): " , err);
         }
     }
-
-
-
 
     // Getters
     const id = computed(() => state.id);
@@ -135,7 +117,6 @@ export const useUserStore = defineStore('user', () => {
         logout,
         get,
         update,
-        save,
         id,
         firstName,
         lastName,

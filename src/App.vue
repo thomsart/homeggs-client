@@ -29,9 +29,8 @@
 
     <div id="header">
         <h1>Homeggs... </h1>
-        <h2>" Mets tout tes œufs dans le même foyer ! "</h2>
+        <h3>" Mets tout tes œufs dans le même foyer ! "</h3>
     </div>
-    <hr>
     <template v-if="!token">
         <div id="login-form"><LoginForm /></div>
     </template>

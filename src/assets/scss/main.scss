@@ -19,7 +19,7 @@ h3 {
     color: $color-blue;
     text-align: center;
 }
-p {
+p, input {
     @include font-face('yusei-magic', '/fonts/yusei-magic/yusei-magic-regular.ttf');
     color: $color-black;
     font-family: 'yusei-magic';

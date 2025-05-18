@@ -52,8 +52,8 @@
         <input v-model="productAttributesToUpdate['quantity']"  type="text" :placeholder="product.quantity">
         <input v-model="productAttributesToUpdate['kilo']"  type="text" :placeholder="product.kilo">
         <input v-model="productAttributesToUpdate['litre']"  type="text" :placeholder="product.litre">
-        <CustomButton id="custom-button-update-product" buttonText="Modifier" @button-click="handleUpdateProduct(product)" />
-        <CustomButton id="custom-button-delete-product" buttonText="Supprimer" @button-click="handleDeleteProduct(product)" />
+        <CustomButton id="custom-button-update-product" buttonText="modifier" @button-click="handleUpdateProduct(product)" />
+        <CustomButton id="custom-button-delete-product" buttonText="supprimer" @button-click="handleDeleteProduct(product)" />
     </form>
 
 </template>
