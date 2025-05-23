@@ -28,6 +28,8 @@ p, input {
 // The entire application wrapped in it
 #app {
     @include dev-style($color-egg, $color-black);
+    padding: 5%;
+
     #header {
         // @include dev-style($color-egg, $color-red);
 

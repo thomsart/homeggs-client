@@ -15,6 +15,15 @@
         clearToken();
     };
 
+    const handleShowAccount = async () => {
+        const element = document.getElementById('user-updating');
+        if(element.style.display === 'none') {
+            element.style.display = 'flex';
+        } else {
+            element.style.display = 'none';
+        }
+    };
+
     const handleUpdateUser = async () => {
         console.log(userAttributesToUpdate);
         await user.update({body: userAttributesToUpdate});
@@ -24,8 +33,9 @@
 
 <template>
 
-    <h2>Bienvenue {{ user.firstName }} ! 
-        <CustomButton id="custom-button-logout" buttonText="&nbsp;&nbsp;¡&nbsp;&nbsp;" @button-click="handleLogout()" /></h2>
+    <h2>Bienvenue {{ user.firstName }} !</h2>
+    <CustomButton id="custom-button-user-account" buttonText="compte" @button-click="handleShowAccount()" />
+    <CustomButton id="custom-button-logout" buttonText="déconnexion" @button-click="handleLogout()" />
     <form id="user-updating" @submit.prevent="handleUpdateUser(userAttributesToUpdate)">
         <input v-model="userAttributesToUpdate['first_name']" type="text" :placeholder="user.firstName">
         <input v-model="userAttributesToUpdate['last_name']"  type="text" :placeholder="user.lastName">
@@ -40,14 +50,20 @@
 
     #custom-button-logout {
         background-color: $color-RED;
-        border-color: solid white 1px;
-        border-radius: 20px;
     }
 
-    form {
+    #custom-button-user-account {
+        background-color: $color-BLUE;
+    }
+
+    #user-updating {
+
+        display: none;
+
         input {
             background-color: $color-egg;
-            border: none;
+            border-color: $color-black;
+            border-radius: 15px;
         }
         
         #custom-button-user-updating {

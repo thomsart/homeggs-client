@@ -106,7 +106,7 @@
         <div v-if="availableProducts.length > 0">
             <CustomButton class="custom-button-product-create-add" buttonText="&nbsp;+&nbsp;" @button-click="isModalAvailableProductsOpen = true" />
         </div>
-        <CustomButton class="custom-button-product-create-add" buttonText="Create product" @button-click="isModalProductFormOpen = true" />
+        <CustomButton class="custom-button-product-create-add" buttonText="crée un produit" @button-click="isModalProductFormOpen = true" />
 
         <div v-if="isModalAvailableProductsOpen" class="modal-overlay">
             <CustomButton class="button-close-modal" buttonText="<" @button-click="isModalAvailableProductsOpen = false"/>
