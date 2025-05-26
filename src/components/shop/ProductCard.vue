@@ -48,10 +48,14 @@
 <template>
 
     <form id="product-card">
-        <input v-model="productAttributesToUpdate['name']" type="text" :placeholder="product.name" required minlength="2" maxlength="50" size="10">
-        <input v-model="productAttributesToUpdate['quantity']"  type="text" :placeholder="product.quantity">
-        <input v-model="productAttributesToUpdate['kilo']"  type="text" :placeholder="product.kilo">
-        <input v-model="productAttributesToUpdate['litre']"  type="text" :placeholder="product.litre">
+        <label for="name">nom du produit:</label>
+        <input v-model="productAttributesToUpdate['name']" type="text" name="name" :placeholder="product.name" required minlength="2" maxlength="50" size="10">
+        <label for="quantity">quantité:</label>
+        <input v-model="productAttributesToUpdate['quantity']" type="text" name="quantity" :placeholder="product.quantity">
+        <label for="kilo">kilo:</label>
+        <input v-model="productAttributesToUpdate['kilo']" type="text" name="kilo" :placeholder="product.kilo">
+        <label for="litre">litre:</label>
+        <input v-model="productAttributesToUpdate['litre']"  type="text" name="litre" :placeholder="product.litre">
         <CustomButton id="custom-button-update-product" buttonText="modifier" @button-click="handleUpdateProduct(product)" />
         <CustomButton id="custom-button-delete-product" buttonText="supprimer" @button-click="handleDeleteProduct(product)" />
     </form>
