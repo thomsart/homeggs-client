@@ -23,10 +23,28 @@
 <template>
 
     <form id="product-form" @submit.prevent="handlePostProduct()">
-        <input v-for="(value, key) in newProduct.createForm()" :key="key" :id="key" :name="key" v-model="newProduct[key]" 
+        <!-- <input v-for="(value, key) in newProduct.createForm()" :key="key" :id="key" :name="key" v-model="newProduct[key]" 
             :placeholder="key" :type="typeof value === 'number' ? 'number' : 'text'"/>
         <CustomButton id="custom-button-product-validation" buttonText="ajoute"/>
-    </form>
+    </form> -->
+
+
+    <div v-for="(value, key) in newProduct.createForm()" :key="key" class="form-group">
+      <label :for="key">{{ key }}</label>
+      <input
+        :id="key"
+        :name="key"
+        v-model="newProduct[key]"
+        :placeholder="key"
+        :type="typeof value === 'number' ? 'number' : 'text'"
+      />
+    </div>
+    <CustomButton id="custom-button-product-validation" buttonText="Ajouter" />
+  </form>
+
+
+
+
 
 </template>
 
